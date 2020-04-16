@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Person.css"
 
 const Person = (props) => {
-  
+
   const [nameState, setNameState] = useState({
     name : props.name
   });
@@ -15,6 +15,19 @@ const Person = (props) => {
     setNameState({
       name : e.target.value
     });
+  }
+
+  const onDeleteClick = (e) => {
+    props.onDeleteClick(props.index);
+  }
+
+  const style = {
+    position : "absolute",
+    top : "5px",
+    right : "5px",
+    backgroundColor : "red",
+    color : "white",
+    border : "none"
   }
 
   return (
@@ -31,6 +44,7 @@ const Person = (props) => {
         <button onClick={onClick.bind(this, 1)}>+</button>
         <button onClick={onClick.bind(this, -1)}>-</button>
       </p>
+      <button style={style} onClick={onDeleteClick}>X</button>
       {props.children}
     </div>
   );

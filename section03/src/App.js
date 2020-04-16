@@ -4,57 +4,69 @@ import "./App.css";
 import Person from "./Person/Person";
 
 const initialPersonState = [
-  { name: "Max", age: 14 },
-  { name: "Manu", age: 16 },
-  { name: "Anna", age: 28 },
+  { name: "Max", age: 14, id : "user01" },
+  { name: "Manu", age: 16, id : "user02" },
+  { name: "Anna", age: 28, id : "user03" },
 ];
-
 
 class App extends Component {
   state = {
-    persons: initialPersonState.map(e => Object.assign({}, e)),
+    persons: initialPersonState.map((e) => Object.assign({}, e)),
+    showPersons: false,
   };
 
   render() {
-
     const style = {
       backgroundColor: "white",
       font: "inherit",
       border: "1px solid blue",
       padding: "8px",
       cursor: "pointer",
+      margin: "5px",
     };
 
     return (
       <div className="App">
         <h1>Hello, React!</h1>
         <p>this is react app.</p>
-        <button style={style} onClick={this.resetHandler}>reset</button>
-        {this.renderPerson()}
+        <button style={style} onClick={this.togglePersonHandler}>
+          toggle
+        </button>
+        <button style={style} onClick={this.resetHandler}>
+          reset
+        </button>
+        {this.state.showPersons ? this.renderPerson() : null}
       </div>
     );
     // return React.createElement('div', {className : "app"}, React.createElement('h1', null, 'Hello, React!'));
   }
 
   renderPerson() {
-    let persons = [];
-    for (let i = 0; i < this.state.persons.length; i++) {
-      persons.push(
+    return this.state.persons.map((person, index) => {
+      return (
         <Person
-          key={i}
-          index={i}
-          name={this.state.persons[i].name}
-          age={this.state.persons[i].age}
+          key={person.id}
+          index={index}
+          name={person.name}
+          age={person.age}
           onClick={this.switchAgeHandler}
+          onDeleteClick={this.deletePersonHandler}
         />
       );
-    }
-    return persons;
+    });
   }
 
+  // [ Event Handlers ]
+  togglePersonHandler = () => {
+    this.setState({ showPersons: !this.state.showPersons });
+  };
+
   switchAgeHandler = (index, num) => {
-    let persons = [...this.state.persons];
-    persons[index].age += num;
+    const persons = [...this.state.persons];
+    const person = Object.assign({}, this.state.persons[index]);
+    person.age += num;
+    persons[index] = person;
+    
     this.setState({
       persons: persons,
     });
@@ -62,9 +74,17 @@ class App extends Component {
 
   resetHandler = (e) => {
     this.setState({
-      persons : initialPersonState.map(e => Object.assign({}, e)),
+      persons: initialPersonState.map((e) => Object.assign({}, e)),
     });
-  }
+  };
+
+  deletePersonHandler = (index) => {
+    const persons = [...this.state.persons];
+    persons.splice(index, 1);
+    this.setState({
+      persons: persons,
+    });
+  };
 }
 
 // react hooks
