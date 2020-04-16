@@ -1,0 +1,14 @@
+.UserOutput {
+  border-radius: 5px;
+  padding: 15px;
+  margin: 20px 10px;
+  box-shadow: 2px 2px 5px #999999;
+  background-color: #fff;
+  color: blueviolet;
+}
+
+
+.UserOutput:hover {
+  background-color: blueviolet;
+  color: white;
+}
