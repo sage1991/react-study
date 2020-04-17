@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 // import Radium from "radium";
 import styled from "styled-components";
-import "./Person.css";
+import CSS from "./Person.css";
 
 // styled-components
 const StyledDiv = styled.div`
-  {
+   {
     margin: 20px auto;
     width: 90%;
-    border : 1px solid #eee;
+    border: 1px solid #eee;
     box-shadow: 0px 2px 3px #ccc;
     padding: 16px;
     text-align: center;
@@ -55,8 +55,7 @@ const Person = (props) => {
   };
 
   return (
-    // <div className="Person" style={divStyle}>
-    <StyledDiv>
+    <div className={CSS.Person} style={divStyle}>
       <p>
         <b>name</b> : {nameState.name}, <b>age</b> : {props.age}
       </p>
@@ -77,7 +76,7 @@ const Person = (props) => {
         X
       </button>
       {props.children}
-    </StyledDiv>
+    </div>
   );
 };
 

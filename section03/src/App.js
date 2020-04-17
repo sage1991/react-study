@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import Radium from "radium";
 // import React, { useState } from "react";  // react hooks
 // import styled from "styled-components";
-import "./App.css";
+import Classes from "./App.css";
 import Person from "./Person/Person";
 
 // styled component
@@ -53,7 +53,7 @@ class App extends Component {
     // };
 
     return (
-      <div className="App">
+      <div className={Classes.App}>
         <h1>Hello, React!</h1>
         <p>this is react app.</p>
         {/* 
@@ -68,10 +68,10 @@ class App extends Component {
           reset
         </button> 
         */}
-        <button className="button" onClick={this.togglePersonHandler}>
+        <button onClick={this.togglePersonHandler}>
           toggle
         </button>
-        <button className="button" onClick={this.resetHandler}>
+        <button className={Classes.reset} onClick={this.resetHandler}>
           reset
         </button>
         {this.state.showPersons ? this.renderPerson() : null}

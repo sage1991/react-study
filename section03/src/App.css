@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.button {
+.App button {
   background-color: white;
   font: inherit;
   border: 1px solid blue;
@@ -12,7 +12,17 @@
   cursor: pointer;
 }
 
-.button:hover {
+.App button:hover {
   background-color: blue;
+  color: white;
+}
+
+
+.App button.reset {
+  border: 1px solid green;
+}
+
+.App button.reset:hover {
+  background-color: green;
   color: white;
 }
