@@ -1,12 +1,33 @@
 import React, { Component } from "react";
+// import Radium from "radium";
 // import React, { useState } from "react";  // react hooks
+// import styled from "styled-components";
 import "./App.css";
 import Person from "./Person/Person";
 
+// styled component
+// const StyledButton = styled.button`
+//   {
+//     background-color : ${props => props.alt ? "#555" : "white"};
+//     font : inherit;
+//     border : 1px solid blue;
+//     border-radius : 3px;
+//     padding : 8px;
+//     cursor : pointer;
+//     margin : 5px;
+//   }
+//   ${props => props.alt ? "" : `
+//     &:hover {
+//       background-color : blue;
+//       color : white;
+//     }
+//   `}
+// `;
+
 const initialPersonState = [
-  { name: "Max", age: 14, id : "user01" },
-  { name: "Manu", age: 16, id : "user02" },
-  { name: "Anna", age: 28, id : "user03" },
+  { name: "Max", age: 14, id: "user01" },
+  { name: "Manu", age: 16, id: "user02" },
+  { name: "Anna", age: 28, id: "user03" },
 ];
 
 class App extends Component {
@@ -16,23 +37,41 @@ class App extends Component {
   };
 
   render() {
-    const style = {
-      backgroundColor: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
-      margin: "5px",
-    };
+
+    // const style = {
+    //   backgroundColor: "white",
+    //   font: "inherit",
+    //   border: "1px solid blue",
+    //   borderRadius: "3px",
+    //   padding: "8px",
+    //   cursor: "pointer",
+    //   margin: "5px",
+    //   ":hover": {
+    //     backgroundColor: "blue",
+    //     color: "white",
+    //   },
+    // };
 
     return (
       <div className="App">
         <h1>Hello, React!</h1>
         <p>this is react app.</p>
-        <button style={style} onClick={this.togglePersonHandler}>
+        {/* 
+        <StyledButton alt={this.state.persons.length === 0} onClick={this.togglePersonHandler}>toggle</StyledButton>
+        <StyledButton onClick={this.resetHandler}>reset</StyledButton> 
+        */}
+        {/* 
+        <button key="1" style={style} onClick={this.togglePersonHandler}>
           toggle
         </button>
-        <button style={style} onClick={this.resetHandler}>
+        <button key="2" style={style} onClick={this.resetHandler}>
+          reset
+        </button> 
+        */}
+        <button className="button" onClick={this.togglePersonHandler}>
+          toggle
+        </button>
+        <button className="button" onClick={this.resetHandler}>
           reset
         </button>
         {this.state.showPersons ? this.renderPerson() : null}
@@ -66,7 +105,7 @@ class App extends Component {
     const person = Object.assign({}, this.state.persons[index]);
     person.age += num;
     persons[index] = person;
-    
+
     this.setState({
       persons: persons,
     });
@@ -129,4 +168,5 @@ const App = props => {
 }
  */
 
+// export default Radium(App);
 export default App;
