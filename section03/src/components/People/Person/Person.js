@@ -1,32 +1,15 @@
 import React, { useState } from "react";
-// import Radium from "radium";
-import styled from "styled-components";
 import CSS from "./Person.css";
 
-// styled-components
-const StyledDiv = styled.div`
-   {
-    margin: 20px auto;
-    width: 90%;
-    border: 1px solid #eee;
-    box-shadow: 0px 2px 3px #ccc;
-    padding: 16px;
-    text-align: center;
-    transition: background-color 0.5s;
-    position: relative;
-  }
-  @media (min-width: 500px) {
-    width: 450px;
-  }
-`;
 
 const Person = (props) => {
+  
   const [nameState, setNameState] = useState({
     name: props.name,
   });
 
   const onClick = (num, e) => {
-    props.onClick(props.index, num);
+    props.onSwitchAgeClick(props.index, num);
   };
 
   const onChange = (e) => {
@@ -48,14 +31,8 @@ const Person = (props) => {
     border: "none",
   };
 
-  const divStyle = {
-    "@media(min-width: 500px)": {
-      width: "450px",
-    },
-  };
-
   return (
-    <div className={CSS.Person} style={divStyle}>
+    <div className={CSS.Person}>
       <p>
         <b>name</b> : {nameState.name}, <b>age</b> : {props.age}
       </p>
