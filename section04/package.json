@@ -142,5 +142,8 @@
       "react-app"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "css-modules-typescript-loader": "^4.0.0",
+    "typings-for-css-modules-loader": "^1.7.0"
+  }
 }

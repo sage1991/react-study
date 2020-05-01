@@ -79,13 +79,14 @@ module.exports = function (webpackEnv) {
           ? { publicPath: "../../" }
           : {},
       },
-      "@teamsupercell/typings-for-css-modules-loader",
       {
         loader: require.resolve("css-loader"),
         options: {
-          ...cssOptions,
-          modules: true,
-          localIdentName: "[name]_[local]_[hash:base64:5]",
+          modules: {
+            mode: "local",
+            localIdentName: "[name]__[local]__[hash:base64:5]",
+          },
+          localsConvention: "camelCase",
         },
       },
       {
