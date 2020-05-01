@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import Person from "./Person/Person";
+import PropTypes from "prop-types"
 
 // const People = (props) => {
 //   console.log("People.js -> render");
@@ -57,5 +58,10 @@ class People extends PureComponent {
     );
   }
 }
+
+People.propTypes = {
+  persons : PropTypes.array
+}
+
 
 export default People;

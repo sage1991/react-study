@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CSS from "./App.css";
 import People from "../components/People/People";
 import Cockpit from "../components/Cockpit/Cockpit";
+import AuthContext from "../context/AuthContext";
 
 /**
  * [ Component creation lifecycle ]
@@ -40,6 +41,8 @@ class App extends Component {
     persons: initialPersonState.map((e) => Object.assign({}, e)),
     showPersons: false,
     showCockpit: true,
+    resetCounter: 0,
+    authenticated : false,
   };
 
   constructor(props) {
@@ -62,25 +65,37 @@ class App extends Component {
     });
   };
 
+  loginHandler = () => {
+    this.setState({
+      authenticated : true
+    });
+  }
+
+
   render() {
     console.log("App.js -> render");
     return (
       <div className={CSS.App}>
         <button onClick={this.toggleCockpit}>toggle cockpit</button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            title={this.props.appTitle}
-            personsLength={this.state.persons.length}
-            onReset={this.resetHandler}
-            onToggle={this.togglePersonHandler}
+        <AuthContext.Provider value={{
+          authenticated : this.state.authenticated,
+          login : this.loginHandler
+        }}>
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.appTitle}
+              personsLength={this.state.persons.length}
+              onReset={this.resetHandler}
+              onToggle={this.togglePersonHandler}
+            />
+          ) : null}
+          <People
+            persons={this.state.persons}
+            showPerson={this.state.showPersons}
+            onSwitchAgeClick={this.switchAgeHandler}
+            onDeleteClick={this.deletePersonHandler}
           />
-        ) : null}
-        <People
-          persons={this.state.persons}
-          showPerson={this.state.showPersons}
-          onSwitchAgeClick={this.switchAgeHandler}
-          onDeleteClick={this.deletePersonHandler}
-        />
+        </AuthContext.Provider>
       </div>
     );
     // return React.createElement('div', {className : "app"}, React.createElement('h1', null, 'Hello, React!'));
@@ -110,8 +125,18 @@ class App extends Component {
   };
 
   resetHandler = (e) => {
-    this.setState({
-      persons: initialPersonState.map((e) => Object.assign({}, e)),
+    // this.setState({
+    //   persons: initialPersonState.map((e) => Object.assign({}, e)),
+    //   resetCounter : this.state.resetCounter + 1
+    // });
+
+    // next state 가 prev state의 영향을 받을 경우, setState에 Object 대신 함수를 넘길것!
+    // 이렇게 하면 react가 prev state의 상태가 개발자가 의도한 이전 상태인 것을 보장 해 줌..
+    this.setState((prevState, props) => {
+      return {
+        persons: initialPersonState.map((e) => Object.assign({}, e)),
+        resetCounter: prevState.resetCounter + 1,
+      };
     });
   };
 

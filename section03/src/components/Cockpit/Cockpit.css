@@ -33,3 +33,12 @@
   background-color: white;
   color: grey;
 }
+
+.Cockpit button.login {
+  border : 1px solid plum;
+}
+
+.Cockpit button.login:hover {
+  background-color: plum;
+  color: white;
+}

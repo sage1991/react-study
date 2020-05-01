@@ -1,9 +1,12 @@
-import React, { useState, Component } from "react";
+import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types"
 import CSS from "./Person.css";
+import WithClass from "../../../hoc/WithClass";
+import AuthContext from "../../../context/AuthContext"
 
 
 // const Person = (props) => {
-  
+
 //   console.log("Person.js -> render");
 //   const [nameState, setNameState] = useState({
 //     name: props.name,
@@ -55,15 +58,20 @@ import CSS from "./Person.css";
 //   );
 // };
 
-
 class Person extends Component {
-
   state = {
-    name : this.props.name
+    name: this.props.name,
+  };
+
+  static contextType = AuthContext;
+
+  constructor(props) {
+    super(props);
+    this.nameInputRef = React.createRef();
   }
 
-  render() {
 
+  render() {
     console.log("[ Person.js ] - render");
 
     const style = {
@@ -76,7 +84,15 @@ class Person extends Component {
     };
 
     return (
-      <div className={CSS.Person}>
+      <Fragment>
+        {/* <AuthContext.Consumer>
+          {
+            (context) => context.authenticated ? <p>Authentuicated!!</p> : <p>please login</p>
+          }
+        </AuthContext.Consumer> */}
+        {
+          this.context.authenticated ? <p>Authentuicated!!</p> : <p>please login</p>
+        }
         <p>
           <b>name</b> : {this.state.name}, <b>age</b> : {this.props.age}
         </p>
@@ -87,6 +103,7 @@ class Person extends Component {
             placeholder="name"
             value={this.state.name}
             onChange={this.onChange}
+            ref={this.nameInputRef}
           />
         </p>
         <p>
@@ -97,7 +114,7 @@ class Person extends Component {
           X
         </button>
         {this.props.children}
-      </div>
+      </Fragment>
     );
   }
 
@@ -107,7 +124,7 @@ class Person extends Component {
 
   onChange = (e) => {
     this.setState({
-      name : e.target.value,
+      name: e.target.value,
     });
   };
 
@@ -115,17 +132,16 @@ class Person extends Component {
     this.props.onDeleteClick(this.props.index);
   };
 
-
   // update life cycle
 
-  static getDerivedStateFromProps(props, state) {
-    console.log("[ Person.js ] - getDrivedStateFromProps", props, state);
-    return state;
-  }
+  // static getDerivedStateFromProps(props, state) {
+  //   console.log("[ Person.js ] - getDrivedStateFromProps", props, state);
+  //   return state;
+  // }
 
-  componentWillReceiveProps(props) {
-    console.log("[ Person.js ] - componentWillReceiveProps", props);
-  }
+  // componentWillReceiveProps(props) {
+  //   console.log("[ Person.js ] - componentWillReceiveProps", props);
+  // }
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log("[ Person.js ] - shouldComponentUpdate");
@@ -134,23 +150,31 @@ class Person extends Component {
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log("[ Person.js ] - getSnapshotBeforeUpdate");
-    return {message : "snapshot"}
+    return { message: "snapshot" };
   }
 
-  componentWillUpdate() {
-    console.log("[ Person.js ] - componentWillUpdate");
-  }
+  // componentWillUpdate() {
+  //   console.log("[ Person.js ] - componentWillUpdate");
+  // }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     console.log("[ Person.js ] - componentDidUpdate", snapshot);
+    this.nameInputRef.current.focus();
   }
 
   componentWillUnmount() {
     console.log("[ Person.js ] - componentWillUnmount");
   }
+
+  componentDidMount() {
+    this.nameInputRef.current.focus();
+  }
 }
 
-
+Person.propTypes = {
+  name : PropTypes.string,
+  age : PropTypes.number,
+}
 
 // export default Radium(Person);
-export default Person;
+export default WithClass(Person, CSS.Person);
