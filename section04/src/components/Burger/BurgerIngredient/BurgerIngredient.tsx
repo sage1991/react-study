@@ -1,6 +1,7 @@
 import React, { ReactElement, Component } from "react";
 const style = require("./BurgerIngredient.css");
 
+
 export enum IngredientType {
   BreadBottom = "bread-bottom",
   BreadTop = "bread-top",

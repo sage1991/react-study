@@ -1,7 +1,6 @@
 import React, { FC, ReactElement } from "react";
-import BurgerIngredient, {
-  IngredientType,
-} from "./BurgerIngredient/BurgerIngredient";
+import BurgerIngredient, { IngredientType } from "./BurgerIngredient/BurgerIngredient";
+import { ingredientsTypeMapper } from "../../core/converter/IngredientTypeConverter";
 
 const style = require("./Burger.css");
 
@@ -11,27 +10,12 @@ interface BurgerProps {
   };
 }
 
-const ingredientsTypeMapper = (key: string): IngredientType => {
-  switch (key) {
-    case "salad":
-      return IngredientType.Salad;
-    case "bacon":
-      return IngredientType.Bacon;
-    case "cheese":
-      return IngredientType.Cheese;
-    case "meat":
-      return IngredientType.Meat;
-    case "bread-top":
-      return IngredientType.BreadTop;
-    case "bread-bottom":
-      return IngredientType.BreadBottom;
-    default:
-      throw new Error("unKnown Ingredient type.");
-  }
-};
-
 const Burger: FC<BurgerProps> = (props: BurgerProps) => {
+  
   const ingredientsList = Object.keys(props.ingredients)
+    .filter((key:string) => {
+      return key !== IngredientType.BreadTop && key !== IngredientType.BreadBottom;
+    })
     .map((key: string, index: number): [string, number] => {
       return [key, props.ingredients[key]];
     })
@@ -51,7 +35,7 @@ const Burger: FC<BurgerProps> = (props: BurgerProps) => {
     );
   
   if(ingredientsList.length === 0) {
-    ingredientsList.push(<p>Please start adding ingredients!</p>);
+    ingredientsList.push(<p key="no-item">Please start adding ingredients!</p>);
   }
   
   return (
