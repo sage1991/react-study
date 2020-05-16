@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, ReactNode } from "react";
 import Post from "../../components/Post/Post";
 import FullPost from "../../components/FullPost/FullPost";
 import NewPost from "../../components/NewPost/NewPost";
-import axios from "axios";
+import axios from "../../core/Axios";
 import "./Blog.css";
+import { Optional } from "../../core/Types";
+
 
 type PostData = {
   userId: number;
@@ -13,26 +15,36 @@ type PostData = {
   author: string;
 };
 
+
 interface BlogState {
   posts: PostData[];
-  selectedPostId: number;
+  selectedPostId: Optional<number>;
+  error: boolean;
 }
 
+
 class Blog extends Component<{}, BlogState> {
+  
   state = {
     posts: [],
-    selectedPostId: -1
+    selectedPostId: null,
+    error: false
   };
 
   componentDidMount() {
     axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => {
-        const posts = res.data.slice(0, 4).map((post: any) => {
+      .get("/posts")
+      .then(response => {
+        const posts = response.data.slice(0, 4).map((post: any) => {
           return { ...post, author: "Harry" };
         });
         console.log(posts);
         this.setState({ posts: posts });
+      })
+      .catch(error => {
+        this.setState({
+          error: true
+        })
       });
   }
 
@@ -43,17 +55,23 @@ class Blog extends Component<{}, BlogState> {
   };
 
   render() {
-    const posts = this.state.posts.map((post: PostData) => {
-      return (
-        <Post
-          key={post.id}
-          id={post.id}
-          title={post.title}
-          author={post.author}
-          onClick={this.postSelectedHandler}
-        />
-      );
-    });
+    
+    let posts:ReactNode;
+    if(this.state.error) {
+      posts = <p style={{textAlign:"center"}}>something went wrong!</p>
+    } else {
+      posts = this.state.posts.map((post: PostData) => {
+        return (
+          <Post
+            key={post.id}
+            id={post.id}
+            title={post.title}
+            author={post.author}
+            onClick={this.postSelectedHandler}
+          />
+        );
+      });
+    }
 
     return (
       <div>
