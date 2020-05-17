@@ -1,4 +1,4 @@
-import React, { Fragment, FC, Component } from "react";
+import React, { Fragment, Component } from "react";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 import SideDrawer from "../../components/Navigation/SideDrawer/SideDrawer";
 import { autoBind } from "../../core/AutoBind";
