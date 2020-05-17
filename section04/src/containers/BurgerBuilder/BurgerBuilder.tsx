@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import { IngredientType } from "../../components/Burger/BurgerIngredient/BurgerIngredient";
-import { autoBind } from "../../core/AutoBind";
+import { autoBind } from "../../core/decorator/AutoBind";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../core/http/Axios";
