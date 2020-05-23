@@ -1,22 +1,22 @@
 import React, { FC, ReactElement } from "react";
 import BurgerIngredient, { IngredientType } from "./BurgerIngredient/BurgerIngredient";
 import { ingredientsTypeMapper } from "../../core/converter/IngredientTypeConverter";
+import { Ingredients } from "../../containers/BurgerBuilder/BurgerBuilder";
 
 const style = require("./Burger.css");
 
 interface BurgerProps {
-  ingredients: {
-    [name: string]: number;
-  };
+  ingredients: Ingredients
 }
+
 
 const Burger: FC<BurgerProps> = (props: BurgerProps) => {
   
-  const ingredientsList = Object.keys(props.ingredients)
-    .filter((key:string) => {
+  const ingredientsList = (Object.keys(props.ingredients) as IngredientType[])
+    .filter((key:IngredientType) => {
       return key !== IngredientType.BreadTop && key !== IngredientType.BreadBottom;
     })
-    .map((key: string, index: number): [string, number] => {
+    .map((key: IngredientType, index: number): [string, number] => {
       return [key, props.ingredients[key]];
     })
     .reduce(

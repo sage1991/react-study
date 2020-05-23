@@ -8,6 +8,7 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import axios from "../../core/http/Axios";
 import Spinner from "../../components/UI/spinner/Spinner";
 import WithErrorHandler from "../../hoc/withErrorHandler/WithErrorHandler";
+import { RouteComponentProps } from "react-router-dom";
 
 
 const INGREDIENT_PRICE: IngredientPrice = {
@@ -23,6 +24,11 @@ export type DisabledInfo = Record<IngredientType, boolean>;
 export type IngredientPrice = Record<IngredientType, number>;
 export type Ingredients = Record<IngredientType, number>;
 
+
+interface BurgerBuilderProps extends RouteComponentProps{
+
+}
+
 interface BurgerBuilderState {
   ingredients: Ingredients | null;
   totalPrice: number;
@@ -32,7 +38,8 @@ interface BurgerBuilderState {
   error : boolean;
 }
 
-class BurgerBuilder extends Component<{}, BurgerBuilderState> {
+
+class BurgerBuilder extends Component<BurgerBuilderProps, BurgerBuilderState> {
 
   state:BurgerBuilderState = {
     ingredients: null,
@@ -97,7 +104,6 @@ class BurgerBuilder extends Component<{}, BurgerBuilderState> {
         );
       }
     }
-
 
     return (
       <Fragment>
@@ -198,42 +204,52 @@ class BurgerBuilder extends Component<{}, BurgerBuilderState> {
   @autoBind
   purchaseContinueHandler() {
     
-    this.setState({
-      loading : true,
+    const queryParams = [];
+    for(let key in this.state.ingredients) {
+      queryParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(this.state.ingredients[key as IngredientType])}`);
+    }
+
+    this.props.history.push({
+      pathname: "/checkout",
+      search: `?${queryParams.join("&")}`
     });
 
+    // this.setState({
+    //   loading : true,
+    // });
 
-    const order = {
-      ingredients : this.state.ingredients,
-      price : this.state.totalPrice,
-      customer : {
-        name : "Hyunsu Kim",
-        address : {
-          street : "doksanro 50 da gil 19",
-          zipCode : "123123",
-          country : "Korea"
-        },
-        email : "harry@kane.kr",
-        deliveryMethod : "fastest"
-      }
-    };
 
-    axios
-      .post("/order", order)
-      .then(response => {
-        this.setState({
-          loading : false,
-          purchasing : false,
-        });
-        console.log(response);
-      })
-      .catch(error => {
-        this.setState({
-          loading : false,
-          purchasing : false,
-        });
-        console.log(error)
-      });
+    // const order = {
+    //   ingredients : this.state.ingredients,
+    //   price : this.state.totalPrice,
+    //   customer : {
+    //     name : "Hyunsu Kim",
+    //     address : {
+    //       street : "doksanro 50 da gil 19",
+    //       zipCode : "123123",
+    //       country : "Korea"
+    //     },
+    //     email : "harry@kane.kr",
+    //     deliveryMethod : "fastest"
+    //   }
+    // };
+
+    // axios
+    //   .post("/order", order)
+    //   .then(response => {
+    //     this.setState({
+    //       loading : false,
+    //       purchasing : false,
+    //     });
+    //     console.log(response);
+    //   })
+    //   .catch(error => {
+    //     this.setState({
+    //       loading : false,
+    //       purchasing : false,
+    //     });
+    //     console.log(error)
+    //   });
   }
 }
 
