@@ -1,14 +1,20 @@
 import React, { Component } from "react";
-import axios from "../../core/Axios";
+import axios from "../../../core/Axios";
 import "./NewPost.css";
+import { Redirect, RouteComponentProps } from "react-router";
 
-class NewPost extends Component {
+class NewPost extends Component<RouteComponentProps> {
+
   state = {
     title: "",
     content: "",
     author: "Max",
   };
 
+
+  componentDidMount() {
+    console.log(this.props);
+  }
 
   private postDataHandler = () => {
     const post = {
@@ -19,13 +25,14 @@ class NewPost extends Component {
     axios
       .post("/posts", post)
       .then(response => {
-        console.log(response);
+        this.props.history.replace("/posts");
       });
   }
 
   render() {
     return (
       <div className="NewPost">
+        {/* <Redirect to="/" /> */}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import axios from "../../core/Axios";
+import axios from "../../../core/Axios";
 import "./FullPost.css";
-import { Optional } from "../../core/Types";
+import { Optional } from "../../../core/Types";
+import { RouteComponentProps } from "react-router";
 
 type LoadedPost = {
   userId: number;
@@ -10,7 +11,7 @@ type LoadedPost = {
   body: string;
 };
 
-interface FullPostProps {
+interface FullPostProps extends RouteComponentProps<{id:string}> {
   id: Optional<number>;
   title?: string;
   content?: string;
@@ -26,9 +27,19 @@ class FullPost extends Component<FullPostProps, FullPostState> {
     loadedPost: null
   };
 
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  componentDidUpdate() {
+    this.loadData();
+  }
+
+
   render() {
     let post;
-    if(this.props.id === null) {
+    if(this.props.match.params.id === null) {
       post  = <p style={{textAlign:"center"}}>Please select a Post!</p>;
     } else if(this.state.loadedPost === null) {
       post = <p style={{textAlign:"center"}}>now on loading....</p>;
@@ -46,7 +57,7 @@ class FullPost extends Component<FullPostProps, FullPostState> {
     return post;
   }
 
-  componentDidUpdate() {
+  loadData() {
     if (this.hasNoData() || this.isPostChanged()) {
       if(this.state.loadedPost !== null) {
         this.setState({
@@ -54,7 +65,7 @@ class FullPost extends Component<FullPostProps, FullPostState> {
         });
       }
       axios
-        .get(`/posts/${this.props.id}`)
+        .get(`/posts/${this.props.match.params.id}`)
         .then((response) => {
           console.log(response.data);
           this.setState({
@@ -66,20 +77,20 @@ class FullPost extends Component<FullPostProps, FullPostState> {
 
   private isPostChanged() {
     if(this.state.loadedPost) {
-      return this.props.id !== this.state.loadedPost.id;
+      return +this.props.match.params.id !== this.state.loadedPost.id;
     } else {
-      return this.props.id !== null;
+      return this.props.match.params.id !== null;
     }
   }
 
   private hasNoData() {
-    return this.state.loadedPost === null && this.props.id !== null;
+    return this.state.loadedPost === null && this.props.match.params.id !== null;
   }
 
 
   private deletePostHandler = () => {
     axios
-      .delete(`/posts/${this.props.id}`)
+      .delete(`/posts/${this.props.match.params.id}`)
       .then(response => {
         console.log(response);
       });
