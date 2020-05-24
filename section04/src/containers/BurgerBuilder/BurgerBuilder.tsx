@@ -71,8 +71,6 @@ class BurgerBuilder extends Component<BurgerBuilderProps, BurgerBuilderState> {
     let burger = this.state.error ? <div>404 not found....</div> : <Spinner />;
 
     if(this.state.ingredients) {
-      
-      console.log(this.state.ingredients);
 
       let disabledInfo: any = {};
       const keys = Object.keys(this.state.ingredients) as IngredientType[];
@@ -208,48 +206,11 @@ class BurgerBuilder extends Component<BurgerBuilderProps, BurgerBuilderState> {
     for(let key in this.state.ingredients) {
       queryParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(this.state.ingredients[key as IngredientType])}`);
     }
-
+    queryParams.push(`price=${this.state.totalPrice}`);
     this.props.history.push({
       pathname: "/checkout",
       search: `?${queryParams.join("&")}`
     });
-
-    // this.setState({
-    //   loading : true,
-    // });
-
-
-    // const order = {
-    //   ingredients : this.state.ingredients,
-    //   price : this.state.totalPrice,
-    //   customer : {
-    //     name : "Hyunsu Kim",
-    //     address : {
-    //       street : "doksanro 50 da gil 19",
-    //       zipCode : "123123",
-    //       country : "Korea"
-    //     },
-    //     email : "harry@kane.kr",
-    //     deliveryMethod : "fastest"
-    //   }
-    // };
-
-    // axios
-    //   .post("/order", order)
-    //   .then(response => {
-    //     this.setState({
-    //       loading : false,
-    //       purchasing : false,
-    //     });
-    //     console.log(response);
-    //   })
-    //   .catch(error => {
-    //     this.setState({
-    //       loading : false,
-    //       purchasing : false,
-    //     });
-    //     console.log(error)
-    //   });
   }
 }
 

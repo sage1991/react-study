@@ -9,7 +9,7 @@ export enum ButtonType {
 interface ButtonProps {
   buttonType : ButtonType;
   children?: ReactNode;
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const Button: FC<ButtonProps> = (props: ButtonProps) => {

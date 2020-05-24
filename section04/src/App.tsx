@@ -2,7 +2,8 @@ import React, { FC } from "react";
 import Layout from "./containers/Layout/Layout";
 import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 import Checkout from "./containers/Checkout/Checkout";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import Orders from "./containers/Orders/Orders";
 
 
 const App: FC = () => {
@@ -11,8 +12,8 @@ const App: FC = () => {
       <Layout>
         <Switch>
           <Route path="/checkout" component={Checkout} />
-          <Route path="/" component={BurgerBuilder} />
-          {/* <Redirect to="/" /> */}
+          <Route path="/orders" component={Orders}/ >
+          <Route path="/" exact component={BurgerBuilder} />
         </Switch>
       </Layout>
     </div>

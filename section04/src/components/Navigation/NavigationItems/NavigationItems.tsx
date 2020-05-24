@@ -5,8 +5,8 @@ const style = require("./NavigationItems.css");
 const NavigationItems: FC = (props) => {
   return (
     <ul className={style.NavigationItems}>
-      <NavigationItem isActive={true} link={"/burger/builder"}>Burger&nbsp;Builder</NavigationItem>
-      <NavigationItem isActive={false} link={"/burger/checkout"}>Checkout</NavigationItem>
+      <NavigationItem link={"/"}>Burger&nbsp;Builder</NavigationItem>
+      <NavigationItem link={"/orders"}>Orders</NavigationItem>
     </ul>
   );
 };
