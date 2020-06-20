@@ -17,7 +17,16 @@ interface InputProps {
 }
 
 const Input: FC<InputProps> = (props) => {
+  return (
+    <div className={css.Input}>
+      <label className={css.Label}>{props.label}</label>
+      {renderInput(props)}
+    </div>
+  );
+}
 
+
+function renderInput(props:InputProps) {
   let inputElement;
   switch (props.inputType) {
     case InputType.Input :
@@ -58,13 +67,7 @@ const Input: FC<InputProps> = (props) => {
     default :
       inputElement = <input className={css.InputElement} {...props.elementConfig} />;
   }
-
-  return (
-    <div className={css.Input}>
-      <label className={css.Label}>{props.label}</label>
-      {inputElement}
-    </div>
-  );
+  return inputElement;
 }
 
 export default Input;
