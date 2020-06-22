@@ -16,7 +16,7 @@ const personReducer = (state: PersonStoreState = initialState, action: Action<Pe
       };
     case PersonAction.DELETE :
       return {
-        people: [ ...state.people ].filter((personModel) => personModel.id === action.payload.id)
+        people: [ ...state.people ].filter((personModel) => personModel.id !== action.payload.id)
       };
     default : 
       return state;

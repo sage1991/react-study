@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { PersonModel, PersonModelBuilder } from "../core/model/PersonModel";
+import { PersonModel } from "../core/model/PersonModel";
 import { AddPerson } from "./AddPerson/AddPerson";
 import { Person } from "./Person/Person";
 
@@ -13,7 +13,7 @@ type PeopleProps = {
 
 const People: FC<PeopleProps> = (props) => (
   <div>
-    <AddPerson onClick={() => { props.onPersonAdd(generateRandomPerson()); }} />
+    <AddPerson onClick={(person: PersonModel) => { props.onPersonAdd(person); }} />
     {
       props.people.map(person => (
         <Person 
@@ -25,15 +25,5 @@ const People: FC<PeopleProps> = (props) => (
     }
   </div>
 );
-
-
-function generateRandomPerson() {
-  return new PersonModelBuilder().id(Date.now())
-                                  .age(Math.floor(Math.random() * 40))
-                                  .name("harry kane")
-                                  .build();
-}
-
-
 
 export { People };
