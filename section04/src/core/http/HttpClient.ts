@@ -58,7 +58,7 @@ class HttpClient {
   }
 
 
-  addHeader(key: string; value: string) {
+  addHeader(key: string, value: string) {
     this.instance.defaults.headers[key] = value;
   }
 

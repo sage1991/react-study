@@ -46,7 +46,6 @@ export default class Layout extends Component<{}, LayoutState> {
           closed={this.sideDrawerClosedHandler}
           opened={this.sideDrawerOpenedHandler} />
         <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
-        <div>toolbar, slideDrawer, backdrop</div>
         <main className={style.content}>{this.props.children}</main>
       </Fragment>
     );
