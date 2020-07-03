@@ -2,6 +2,7 @@ import qs from "qs";
 import { AxiosInstance, AxiosResponse } from "axios";
 import { Converter } from "../common/types/function/Converter";
 import { ResponseBuilder } from "./model/Response";
+import { firebase } from "./Axios";
 
 
 interface RequestConfig {
@@ -94,5 +95,6 @@ class HttpClient {
 
 }
 
+const firebaseClient = new HttpClient(firebase);
 
-export { HttpClient };
+export { HttpClient, firebaseClient };

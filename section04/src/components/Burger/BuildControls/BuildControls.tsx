@@ -1,53 +1,35 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import css from "./BuildControls.module.css";
 import BuildControl from "./BuildControl/BuildControl";
-import { IngredientType } from "../BurgerIngredient/BurgerIngredient";
-import { DisabledInfo } from "../../../containers/BurgerBuilder/BurgerBuilder"
-const style = require("./BuildControls.css");
+import { Callback } from "../../../core/common/types/function/Callback";
+import { PriceModel } from "../../../core/common/model/PriceModel";
+import { BurgerModel } from "../../../core/common/model/BurgerModel";
+import { Ingredient, toIngredientName } from "../../../core/common/code/Ingredient";
 
 
-const controls: { label: string; type: IngredientType }[] = [
-  {
-    label: "Salad",
-    type: IngredientType.Salad,
-  },
-  {
-    label: "Meat",
-    type: IngredientType.Meat,
-  },
-  {
-    label: "Cheese",
-    type: IngredientType.Cheese,
-  },
-  {
-    label: "Bacon",
-    type: IngredientType.Bacon,
-  },
-];
-
-
-interface BuildControlsProps {
-  ingredientAdded : (type:IngredientType) => void;
-  ingredientRemoved : (type:IngredientType) => void;
-  purchase : () => void;
-  disabled : DisabledInfo;
-  price : number;
-  purchaseable : boolean;
-}
 
 const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
+  
+  const [ state, setState ] = useState<BuildControlsState>({
+    purchaseable: false
+  });
+
+  const ingredientNames = Object.keys(props.burger.ingredients) as (keyof typeof Ingredient)[];
+  const controlList = ingredientNames.map((name) => {
+    return (
+      <BuildControl 
+        key={name} 
+        label={toIngredientName(Ingredient[name])}
+        disabled={props.burger.price[Ingredient[name]] === 0}
+        added={props.onAddIngredients.bind(null, Ingredient[name])}
+        removed={props.onRemoveIngredients.bind(null, Ingredient[name])} />
+    );
+  });
+
   return (
-    <div className={style.BuildControls}>
-      <p>Current Price : <strong>{props.price.toFixed(2)}</strong></p>
-      {controls.map((control) => (
-        <BuildControl
-          key={control.label}
-          label={control.label}
-          type={control.type}
-          disabled={props.disabled[control.type]}
-          added={props.ingredientAdded}
-          removed={props.ingredientRemoved}
-        />
-      ))}
+    <div className={css.BuildControls}>
+      <p>Current Price : <strong>{props.price.total.toFixed(2)}</strong></p>
+      {controlList}
       <button 
         className={style.OrderButton} 
         disabled={!props.purchaseable}
@@ -57,5 +39,17 @@ const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
     </div>
   );
 };
+
+
+interface BuildControlsProps {
+  onAddIngredients: Callback;
+  onRemoveIngredients: Callback;
+  onPurchase: Callback;
+  burger: BurgerModel;
+}
+
+interface BuildControlsState {
+  purchaseable: boolean;
+}
 
 export default BuildControls;

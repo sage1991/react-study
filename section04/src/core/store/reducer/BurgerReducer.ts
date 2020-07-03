@@ -1,5 +1,5 @@
 import { Ingredient } from "../../common/code/Ingredient";
-import { Burger, BurgerBuilder } from "../../common/model/Burger";
+import { BurgerModel, BurgerModelBuilder } from "../../common/model/BurgerModel";
 import { Action } from "../action/Action";
 import { BurgerAction } from "../action/actionType/BurgerAction";
 import { BurgerPayload } from "../action/payload/BurgerPayload";
@@ -7,7 +7,7 @@ import { BurgerPayload } from "../action/payload/BurgerPayload";
 
 
 interface BurgerState {
-  burger: Burger;
+  burger: BurgerModel;
   price: number;
 }
 
@@ -21,7 +21,7 @@ const initialIngredients = {
 
 
 const initialState: BurgerState = {
-  burger: new BurgerBuilder().ingredients(initialIngredients).build(),
+  burger: new BurgerModelBuilder().ingredients(initialIngredients).build(),
   price: 4
 }
 
@@ -35,13 +35,13 @@ const burgerReducer = (state = initialState, action: Action<BurgerAction>) => {
     case BurgerAction.ADD_INGREDIENTS :
       return {
         ...state,
-        burger: new BurgerBuilder().ingredients({ ...ingredients, [ingredient]: ingredients[ingredient] + count })
+        burger: new BurgerModelBuilder().ingredients({ ...ingredients, [ingredient]: ingredients[ingredient] + count })
                                     .build()
       };
     case BurgerAction.REMOVE_INGREDIENTS : 
       return {
         ...state,
-        burger: new BurgerBuilder().ingredients({ ...ingredients, [ingredient]: ingredients[ingredient] - count })
+        burger: new BurgerModelBuilder().ingredients({ ...ingredients, [ingredient]: ingredients[ingredient] - count })
                                     .build()
       };
     default : 

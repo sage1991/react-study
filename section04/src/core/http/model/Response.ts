@@ -4,6 +4,10 @@ import { Status } from "../code/Status";
 class Response<T> {
   status: Status;
   data: T;
+
+  get isSuccess() {
+    return this.status === Status.OK;
+  }
 }
 
 class ResponseBuilder<T> {

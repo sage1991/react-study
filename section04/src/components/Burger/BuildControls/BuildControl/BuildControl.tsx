@@ -1,21 +1,20 @@
 import React, { FC } from "react";
-import { IngredientType } from "../../BurgerIngredient/BurgerIngredient";
-const style = require("./BuildControl.css");
+import css from "./BuildControl.module.css";
+import { Callback } from "../../../../core/common/types/function/Callback";
 
 interface BuildControlProps {
-  label : string;
-  type : IngredientType;
-  disabled : boolean
-  added : (type:IngredientType) => void;
-  removed : (type:IngredientType) => void;
+  label: string;
+  disabled: boolean
+  added: Callback;
+  removed: Callback;
 }
 
 const BuildControl:FC<BuildControlProps> = (props:BuildControlProps) => {
   return (
-    <div className={style.BuildControl}>
-      <div className={style.Label}>{props.label}</div>
-      <button className={style.Less} onClick={props.removed.bind(null, props.type)} disabled={props.disabled}>less</button>
-      <button className={style.More} onClick={props.added.bind(null, props.type)}>more</button>
+    <div className={css.BuildControl}>
+      <div className={css.Label}>{props.label}</div>
+      <button className={css.Less} onClick={props.removed} disabled={props.disabled}>less</button>
+      <button className={css.More} onClick={props.added}>more</button>
     </div>
   );
 };

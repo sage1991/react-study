@@ -1,50 +1,40 @@
-import React, { FC, ReactElement } from "react";
-import BurgerIngredient, { IngredientType } from "./BurgerIngredient/BurgerIngredient";
-import { ingredientsTypeMapper } from "../../core/converter/IngredientTypeConverter";
-import { Ingredients } from "../../containers/BurgerBuilder/BurgerBuilder";
+import React, { FC, ReactNode } from "react";
+import css from "./Burger.module.css";
+import { BurgerModel } from "../../core/common/model/BurgerModel";
+import { BurgerBread } from "./BurgerBread/BurgerBread";
+import { BreadType } from "../../core/common/code/BreadType";
+import { Ingredient } from "../../core/common/code/Ingredient";
+import { BurgerIngredient } from "./BurgerIngredient/BurgerIngredient";
 
-const style = require("./Burger.css");
-
-interface BurgerProps {
-  ingredients: Ingredients
-}
 
 
 const Burger: FC<BurgerProps> = (props: BurgerProps) => {
   
-  const ingredientsList = (Object.keys(props.ingredients) as IngredientType[])
-    .filter((key:IngredientType) => {
-      return key !== IngredientType.BreadTop && key !== IngredientType.BreadBottom;
-    })
-    .map((key: IngredientType, index: number): [string, number] => {
-      return [key, props.ingredients[key]];
-    })
-    .reduce(
-      (
-        accumulator: ReactElement[],
-        element: [string, number]
-      ): ReactElement[] => {
-        let _accumulator = [...accumulator];
-        const type = ingredientsTypeMapper(element[0]);
-        for (let i = 0; i < element[1]; i++) {
-          _accumulator.push(<BurgerIngredient key={type + i} type={type} />);
-        }
-        return _accumulator;
-      },
-      []
-    );
-  
-  if(ingredientsList.length === 0) {
-    ingredientsList.push(<p key="no-item">Please start adding ingredients!</p>);
-  }
+  const ingredientNames = Object.keys(props.burger.ingredients) as (keyof typeof Ingredient)[];
+  const ingredients = ingredientNames.map((name) => {
+                                        return {
+                                          type: Ingredient[name],
+                                          amount: props.burger.ingredients[Ingredient[name]]
+                                        }
+                                      }).reduce<ReactNode[]>((accumulator, ingredientInfo) => {
+                                        for (let i = 0; i < ingredientInfo.amount; i++) {
+                                          accumulator.push(<BurgerIngredient type={ingredientInfo.type} />)
+                                        }
+                                        return accumulator;
+                                      }, []);
   
   return (
-    <div className={style.Burger}>
-      <BurgerIngredient type={IngredientType.BreadTop} />
-      {ingredientsList}
-      <BurgerIngredient type={IngredientType.BreadBottom} />
+    <div className={css.Burger}>
+      <BurgerBread type={BreadType.TOP} />
+      { ingredients.length ? ingredients : <p>Please add ingredients!</p> }
+      <BurgerBread type={BreadType.BOTTOM} />
     </div>
   );
 };
+
+
+interface BurgerProps {
+  burger: BurgerModel;
+}
 
 export default Burger;

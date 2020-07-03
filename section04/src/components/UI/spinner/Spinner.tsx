@@ -1,8 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import css from "./Spinner.module.css";
 
-const Spinner = () => {
-  return <div className={css.loader}>Loading...</div>;
+
+const Spinner: FC = () => {
+  return (
+    <div className={css.Heart}>
+      <div></div>
+    </div>
+  );
 }
 
-export default Spinner;
+export { Spinner };
