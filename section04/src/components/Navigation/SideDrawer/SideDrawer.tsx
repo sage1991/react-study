@@ -2,7 +2,8 @@ import React, { FC, Fragment } from "react";
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import css from "./SideDrawer.module.css";
-import Backdrop from "../../UI/Backdrop/Backdrop";
+import { Backdrop } from "../../UI/Backdrop/Backdrop";
+import { BackdropAndModalStatus } from "../../../core/common/code/BackdropAndModalStatus";
 
 
 interface SideDrawerProps {
@@ -24,7 +25,7 @@ const SideDrawer:FC<SideDrawerProps> = (props) => {
   return (
     <Fragment>
       <Backdrop 
-        show={props.show} 
+        status={BackdropAndModalStatus.NONE} 
         clicked={props.closed} />
       <div className={classes.join(" ")}>
         <div className={css.Logo}>

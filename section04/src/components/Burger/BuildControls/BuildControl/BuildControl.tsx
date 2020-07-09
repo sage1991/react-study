@@ -19,4 +19,4 @@ const BuildControl:FC<BuildControlProps> = (props:BuildControlProps) => {
   );
 };
 
-export default BuildControl;
+export { BuildControl };

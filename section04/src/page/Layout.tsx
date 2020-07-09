@@ -2,7 +2,7 @@ import css from "./Layout.module.css";
 import React, { Component, Fragment } from "react";
 import SideDrawer from "../components/Navigation/SideDrawer/SideDrawer";
 import Toolbar from "../components/Navigation/Toolbar/Toolbar";
-import { DefaultProps } from "../core/common/types/data/DefaultProps";
+import { DefaultProps } from "../core/common/types/interface/DefaultProps";
 
 
 class Layout extends Component<DefaultProps, LayoutState> {

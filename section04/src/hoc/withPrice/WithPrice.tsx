@@ -1,11 +1,12 @@
 import React, { ComponentType, Component } from "react"
 import { firebaseClient } from "../../core/http/HttpClient";
-import { PriceModelBuilder } from "../../core/common/model/PriceModel";
+import { PriceModelBuilder, PriceModel } from "../../core/business/model/PriceModel";
 import { Spinner } from "../../components/UI/spinner/Spinner";
-import { BurgerModel } from "../../core/common/model/BurgerModel";
+import { store } from "../../core/store/Store";
+import { BurgerAction } from "../../core/store/action/actionType/BurgerAction";
 
 
-const WithPrice = <P extends BurgerProps> (WrappedComponent: ComponentType<P>) => {
+const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
 
   return class extends Component<P> {
 
@@ -22,8 +23,7 @@ const WithPrice = <P extends BurgerProps> (WrappedComponent: ComponentType<P>) =
       if (this.state.spinner.show) {
         return <Spinner />;
       } else {
-        this.props.burger.price = this.state.price!;
-        return <WrappedComponent {...this.props}/>
+        return <WrappedComponent {...this.props} />
       }
     }
 
@@ -38,6 +38,7 @@ const WithPrice = <P extends BurgerProps> (WrappedComponent: ComponentType<P>) =
       });
 
       if (response.isSuccess) {
+        store.dispatch({ type: BurgerAction.SET_PRICE, payload: response.data });
         this.setState({
           spinner: { show: false },
           price: response.data
@@ -50,9 +51,4 @@ const WithPrice = <P extends BurgerProps> (WrappedComponent: ComponentType<P>) =
   }
 }
 
-
-interface BurgerProps extends Object {
-  burger: BurgerModel;
-}
-
-export { WithPrice };
+export { withPrice };

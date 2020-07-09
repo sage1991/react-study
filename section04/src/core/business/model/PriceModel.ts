@@ -5,9 +5,6 @@ class PriceModel {
   cheese: number;
   salad: number;
   base: number;
-  get total() {
-    return this.meat + this.bacon + this.cheese + this.salad + this.base;
-  }
 }
 
 class PriceModelBuilder {

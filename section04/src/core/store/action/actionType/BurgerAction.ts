@@ -1,6 +1,7 @@
 enum BurgerAction {
   ADD_INGREDIENTS = "ADD_INGREDIENTS",
   REMOVE_INGREDIENTS = "REMOVE_INGREDIENTS",
+  SET_PRICE = "SET_PRICE",
 }
 
 export { BurgerAction };

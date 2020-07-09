@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import Burger from "../../Burger/Burger";
+import { Burger } from "../../Burger/Burger";
 import Button, { ButtonType } from "../../../components/UI/Button/Button";
-import { Ingredients } from "../../../containers/BurgerBuilder/BurgerBuilder";
 import css from "./CheckoutSummary.module.css";
+import { BurgerModel } from "../../../core/business/model/BurgerModel";
 
 
 interface CheckoutSummaryProps {
-  ingredients: Ingredients;
+  burger: BurgerModel;
   onCancel: () => void;
   onContinue: () => void;
 }
@@ -16,7 +16,7 @@ const CheckoutSummary: FC<CheckoutSummaryProps> = (props) => {
     <div className={css.CheckoutSummary}>
       <h1>hello!</h1>
       <div style={{width: "100%", height: "300px", margin: "auto"}}>
-        <Burger ingredients={props.ingredients} />
+        <Burger burger={props.burger} />
       </div>
       <Button buttonType={ButtonType.Danger} onClick={props.onCancel}>CANCEL</Button>
       <Button buttonType={ButtonType.Success} onClick={props.onContinue}>CONTINUE</Button>
@@ -24,4 +24,4 @@ const CheckoutSummary: FC<CheckoutSummaryProps> = (props) => {
   );
 }
 
-export default CheckoutSummary;
+export { CheckoutSummary };

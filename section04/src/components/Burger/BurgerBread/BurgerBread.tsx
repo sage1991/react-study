@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { BreadType } from "../../../core/common/code/BreadType";
+import { BreadType } from "../../../core/business/code/BreadType";
 import css from "./BurgerBread.module.css";
 
 const BurgerBread: FC<BurgerBreadProps> = (props) => {

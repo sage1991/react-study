@@ -1,4 +1,4 @@
-import { Ingredient } from "../../../common/code/Ingredient";
+import { Ingredient } from "../../../business/code/Ingredient";
 
 
 export interface BurgerPayload {

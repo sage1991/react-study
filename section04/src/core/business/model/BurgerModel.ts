@@ -3,7 +3,7 @@ import { PriceModel } from "./PriceModel";
 
 
 class BurgerModel {
-  price: PriceModel;
+  price: number;
   ingredients: Record<Ingredient, number>;
 }
 
@@ -12,7 +12,7 @@ class BurgerModelBuilder {
 
   private instance = new BurgerModel();
 
-  price(price: PriceModel) {
+  price(price: number) {
     this.instance.price = price;
     return this;
   }

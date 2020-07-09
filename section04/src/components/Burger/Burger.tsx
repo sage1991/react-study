@@ -1,9 +1,9 @@
 import React, { FC, ReactNode } from "react";
 import css from "./Burger.module.css";
-import { BurgerModel } from "../../core/common/model/BurgerModel";
+import { BurgerModel } from "../../core/business/model/BurgerModel";
 import { BurgerBread } from "./BurgerBread/BurgerBread";
-import { BreadType } from "../../core/common/code/BreadType";
-import { Ingredient } from "../../core/common/code/Ingredient";
+import { BreadType } from "../../core/business/code/BreadType";
+import { Ingredient } from "../../core/business/code/Ingredient";
 import { BurgerIngredient } from "./BurgerIngredient/BurgerIngredient";
 
 
@@ -37,4 +37,4 @@ interface BurgerProps {
   burger: BurgerModel;
 }
 
-export default Burger;
+export { Burger };

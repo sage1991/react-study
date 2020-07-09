@@ -1,17 +1,14 @@
 import React, { Component, Fragment } from "react";
-import Burger from "../../components/Burger/Burger";
-import { BurgerModel } from "../../core/common/model/BurgerModel";
-import Modal from "../../components/UI/Modal/Modal";
-import BuildControls from "../../components/Burger/BuildControls/BuildControls";
-import { PriceModel } from "../../core/common/model/PriceModel";
-import { WithPrice } from "../../hoc/withPrice/WithPrice";
+import { Modal } from "../../components/UI/Modal/Modal";
+import { DefaultProps } from "../../core/common/types/interface/DefaultProps";
+import { BackdropAndModalStatus } from "../../core/common/code/BackdropAndModalStatus";
 
 
-class BurgerBuilder extends Component<BurgerBuilderProps, BurgerBuilderState> {
+class BurgerBuilder extends Component<DefaultProps, BurgerBuilderState> {
 
   state: BurgerBuilderState = {
     modal: {
-      show: false
+      status: BackdropAndModalStatus.NONE
     }
   }
 
@@ -19,31 +16,29 @@ class BurgerBuilder extends Component<BurgerBuilderProps, BurgerBuilderState> {
     return (
       <Fragment>
         <Modal 
-          show={this.state.modal.show}
-          modalClosed={this.closeModal}>
-          {}
+          status={this.state.modal.status}
+          close={this.closeModal}>
+          <h1>Hello World!</h1>
         </Modal>
-        <Burger model={this.props.burger} />
-        <BuildControls burger={this.props.burger}/>
+        burger
+        BuildControl
+        <button onClick={this.showModal}>sdfasdf</button>
       </Fragment>
     );
   }
 
   private closeModal = () => {
-    this.setState({ modal: { show: false } });
+    this.setState({ modal: { status: BackdropAndModalStatus.HIDE } });
+  }
+
+  private showModal = () => {
+    this.setState({ modal: { status: BackdropAndModalStatus.SHOW } });
   }
   
 }
 
-
-interface BurgerBuilderProps {
-  burger: BurgerModel;
-}
-
 interface BurgerBuilderState {
-  modal: { show: boolean };
+  modal: { status: BackdropAndModalStatus };
 }
 
-const BurgerBuilderWithPrice = WithPrice(BurgerBuilder)
-
-export { BurgerBuilderWithPrice };
+export { BurgerBuilder };
