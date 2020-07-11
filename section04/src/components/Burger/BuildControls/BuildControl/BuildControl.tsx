@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import css from "./BuildControl.module.css";
-import { Callback } from "../../../../core/common/types/function/Callback";
+import { Callback } from "../../../../core/types/function/Callback";
 
 interface BuildControlProps {
   label: string;

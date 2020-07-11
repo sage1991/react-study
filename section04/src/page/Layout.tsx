@@ -2,10 +2,10 @@ import css from "./Layout.module.css";
 import React, { Component, Fragment } from "react";
 import SideDrawer from "../components/Navigation/SideDrawer/SideDrawer";
 import Toolbar from "../components/Navigation/Toolbar/Toolbar";
-import { DefaultProps } from "../core/common/types/interface/DefaultProps";
+import { StyleProps } from "../core/types/interface/StyleProps";
 
 
-class Layout extends Component<DefaultProps, LayoutState> {
+class Layout extends Component<StyleProps, LayoutState> {
 
   state: LayoutState = {
     sideDrawer: {

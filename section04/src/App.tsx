@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./core/store/Store";
-import { BurgerBuilderWithPrice } from "./page/burgerBuilder/BurgerBuilderWithPrice";
+import { BurgerBuilderWithPrice } from "./containers/burgerBuilderWithPrice/BurgerBuilderWithPrice";
 import { Layout } from "./page/Layout";
 
 

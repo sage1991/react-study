@@ -1,62 +1,41 @@
-import React, { Fragment, FC, useRef, useEffect, RefObject, useState, Dispatch, SetStateAction } from "react";
+import React, { Fragment, FC, useRef, useEffect, RefObject, useState, Dispatch, SetStateAction, AnimationEvent } from "react";
 import { Backdrop } from "../Backdrop/Backdrop";
 import css from "./Modal.module.css";
-import { Callback } from "../../../core/common/types/function/Callback";
-import { BackdropAndModalStatus } from "../../../core/common/code/BackdropAndModalStatus";
+import { Callback } from "../../../core/types/function/Callback";
+import { Visibility } from "../../../core/code/Visibility";
 
 
 const Modal: FC<ModalProps> = (props) => {
 
-  const [ state, setState ] = useState<ModalState>({ initEvent: false });
-  const div = useRef<HTMLDivElement>(null);
-  useEAnimationffectHooks(div, props.status, state, setState);
-  
-  switch (props.status) {
-    case BackdropAndModalStatus.HIDE : case BackdropAndModalStatus.SHOW : 
-      const classes = [ css.Modal, props.status === BackdropAndModalStatus.SHOW ? css.ShowModal : css.HideModal ].join("  ");
-      return (
-        <Fragment key={props.status}>
-          <Backdrop status={props.status} clicked={props.close} />
-          <div ref={div} className={classes}>
-            { props.children }
-          </div>
-        </Fragment>
-      );
-    case BackdropAndModalStatus.NONE : default : 
-      return null;
-  }
-}
+  if (props.status !== Visibility.NONE) {
 
-
-const useEAnimationffectHooks = (div: RefObject<HTMLDivElement>, status: BackdropAndModalStatus, state: ModalState, setState: Dispatch<SetStateAction<ModalState>>) => {
-  useEffect(() => {
-    if (div.current && !state.initEvent) {
-      div.current.addEventListener("animationstart", (e: AnimationEvent) => {
-        console.log("animationstart", e.animationName);
-        if (e.animationName === css.ShowModalAnimation && div.current) {
-          div.current.style.display = "block";
-        }
-      });
-      div.current.addEventListener("animationend", (e: AnimationEvent) => {
-        console.log("animationend", e.animationName);
-        if (e.animationName === css.HideModalAnimation && div.current) {
-          div.current.style.display = "none";
-          setState({ initEvent: false });
-        }
-      });
-      setState({ initEvent: true });
+    const classes = [ css.Modal, props.status === Visibility.SHOW ? css.ShowModal : css.HideModal ];
+    const onAnimationStart = (e: AnimationEvent<HTMLDivElement>) => {
+      if (e.animationName === css.ShowModalAnimation) (e.target as HTMLDivElement).style.display = "block";
     }
-  }, [ status ]);
-}
+    const onAnimationEnd = (e: AnimationEvent<HTMLDivElement>) => {
+      if (e.animationName === css.HideModalAnimation) (e.target as HTMLDivElement).style.display = "none";
+    }
 
+    return (
+      <Fragment key={props.status}>
+        <Backdrop status={props.status} clicked={props.close} />
+        <div className={classes.join("  ")}
+             onAnimationStart={onAnimationStart}
+             onAnimationEnd={onAnimationEnd}>
+          { props.children }
+        </div>
+      </Fragment>
+    );
+  }
+
+  return null;
+}
 
 interface ModalProps {
-  status: BackdropAndModalStatus;
+  status: Visibility;
   close: Callback;
 }
 
-interface ModalState {
-  initEvent: boolean;
-}
 
 export { Modal };

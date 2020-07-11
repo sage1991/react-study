@@ -1,7 +1,7 @@
 import React, { ComponentType, Component, Fragment } from "react";
 import { Modal } from "../../components/UI/Modal/Modal";
 import { AxiosInstance } from "axios";
-import { BackdropAndModalStatus } from "../../core/common/code/BackdropAndModalStatus";
+import { Visibility } from "../../core/code/Visibility";
 
 
 
@@ -59,7 +59,7 @@ const WithErrorHandler = <P extends object> (WrappedComponent: ComponentType<P>,
       return (
         <Fragment>
           <Modal 
-            status={BackdropAndModalStatus.NONE}
+            status={Visibility.NONE}
             close={this.errorConfirmedHandler}>
             {this.state.error ? this.state.error.message : null}
           </Modal>

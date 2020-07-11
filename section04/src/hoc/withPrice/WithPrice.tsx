@@ -1,6 +1,6 @@
 import React, { ComponentType, Component } from "react"
 import { firebaseClient } from "../../core/http/HttpClient";
-import { PriceModelBuilder, PriceModel } from "../../core/business/model/PriceModel";
+import { PriceModelBuilder, PriceModel } from "../../business/model/PriceModel";
 import { Spinner } from "../../components/UI/spinner/Spinner";
 import { store } from "../../core/store/Store";
 import { BurgerAction } from "../../core/store/action/actionType/BurgerAction";
@@ -47,7 +47,6 @@ const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
         throw new Error("fail to get price");
       }
     }
-
   }
 }
 

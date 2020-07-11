@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Burger } from "../../Burger/Burger";
 import Button, { ButtonType } from "../../../components/UI/Button/Button";
 import css from "./CheckoutSummary.module.css";
-import { BurgerModel } from "../../../core/business/model/BurgerModel";
+import { BurgerModel } from "../../../business/model/BurgerModel";
 
 
 interface CheckoutSummaryProps {

@@ -1,5 +1,4 @@
 import { Ingredient } from "../code/Ingredient";
-import { PriceModel } from "./PriceModel";
 
 
 class BurgerModel {

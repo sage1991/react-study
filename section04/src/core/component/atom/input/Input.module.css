@@ -1,0 +1,10 @@
+
+.input {
+  border: none;
+}
+
+.secured {
+  -webkit-text-security: disc;
+  -moz-webkit-text-security: disc;
+  -moz-text-security: disc;
+}

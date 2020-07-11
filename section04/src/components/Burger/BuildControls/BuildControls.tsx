@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import css from "./BuildControls.module.css";
 import { BuildControl } from "./BuildControl/BuildControl";
-import { Callback } from "../../../core/common/types/function/Callback";
-import { BurgerModel } from "../../../core/business/model/BurgerModel";
-import { Ingredient, toIngredientName } from "../../../core/business/code/Ingredient";
-import { PriceModel } from "../../../core/business/model/PriceModel";
+import { Callback } from "../../../core/types/function/Callback";
+import { BurgerModel } from "../../../business/model/BurgerModel";
+import { Ingredient, toIngredientName } from "../../../business/code/Ingredient";
+import { PriceModel } from "../../../business/model/PriceModel";
 
 
 

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Ingredient } from "../../../core/business/code/Ingredient";
+import { Ingredient } from "../../../business/code/Ingredient";
 import css from "./BurgerIngredient.module.css";
 
 

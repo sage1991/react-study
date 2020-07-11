@@ -3,7 +3,7 @@ import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import css from "./SideDrawer.module.css";
 import { Backdrop } from "../../UI/Backdrop/Backdrop";
-import { BackdropAndModalStatus } from "../../../core/common/code/BackdropAndModalStatus";
+import { Visibility } from "../../../core/code/Visibility";
 
 
 interface SideDrawerProps {
@@ -25,7 +25,7 @@ const SideDrawer:FC<SideDrawerProps> = (props) => {
   return (
     <Fragment>
       <Backdrop 
-        status={BackdropAndModalStatus.NONE} 
+        status={Visibility.NONE} 
         clicked={props.closed} />
       <div className={classes.join(" ")}>
         <div className={css.Logo}>

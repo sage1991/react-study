@@ -1,9 +1,8 @@
-import { Ingredient } from "../../business/code/Ingredient";
-import { BurgerModel, BurgerModelBuilder } from "../../business/model/BurgerModel";
+import { Ingredient } from "../../../business/code/Ingredient";
+import { BurgerModel, BurgerModelBuilder } from "../../../business/model/BurgerModel";
 import { Action } from "../action/Action";
 import { BurgerAction } from "../action/actionType/BurgerAction";
-import { BurgerPayload } from "../action/payload/BurgerPayload";
-import { PriceModelBuilder, PriceModel } from "../../business/model/PriceModel";
+import { PriceModelBuilder, PriceModel } from "../../../business/model/PriceModel";
 
 
 

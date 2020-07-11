@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
-import { BuildControls as BuildControlsComponent } from "../../../components/Burger/BuildControls/BuildControls";
+import { BuildControls as BuildControlsComponent } from "../../components/Burger/BuildControls/BuildControls";
 import { Dispatch } from "redux";
-import { Action } from "../../../core/store/action/Action";
-import { BurgerAction } from "../../../core/store/action/actionType/BurgerAction";
-import { Ingredient } from "../../../core/business/code/Ingredient";
-import { StoreState } from "../../../core/store/Store";
+import { Action } from "../../core/store/action/Action";
+import { BurgerAction } from "../../core/store/action/actionType/BurgerAction";
+import { Ingredient } from "../../business/code/Ingredient";
+import { StoreState } from "../../core/store/Store";
 
 const mapStateToProps = (state: StoreState) => {
   return {

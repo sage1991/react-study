@@ -1,9 +1,9 @@
 import React, { FC, ReactNode } from "react";
 import css from "./Burger.module.css";
-import { BurgerModel } from "../../core/business/model/BurgerModel";
+import { BurgerModel } from "../../business/model/BurgerModel";
 import { BurgerBread } from "./BurgerBread/BurgerBread";
-import { BreadType } from "../../core/business/code/BreadType";
-import { Ingredient } from "../../core/business/code/Ingredient";
+import { BreadType } from "../../business/code/BreadType";
+import { Ingredient } from "../../business/code/Ingredient";
 import { BurgerIngredient } from "./BurgerIngredient/BurgerIngredient";
 
 

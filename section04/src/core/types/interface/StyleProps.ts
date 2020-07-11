@@ -1,7 +1,7 @@
 import { CSSProperties } from "react";
 
 
-export interface DefaultProps {
+export interface StyleProps {
   style?: CSSProperties;
   className?: string;
 };
