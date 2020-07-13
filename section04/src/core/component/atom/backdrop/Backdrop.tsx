@@ -1,11 +1,13 @@
-import React, { FC, AnimationEvent } from "react";
+import React, { FC, AnimationEvent, MouseEvent, useRef } from "react";
 import css from "./Backdrop.module.css";
 import { Visibility } from "../../../code/Visibility";
 import { Callback } from "../../../types/function/Callback";
 import { LayerLevel } from "../../../code/LayerLevel";
 
 
-const Backdrop: FC<BackdropProps> = (props: BackdropProps) => {
+const Backdrop: FC<BackdropProps> = (props) => {
+  
+  const divRef = useRef<HTMLDivElement>(null);
 
   if (props.status !== Visibility.NONE) {
     
@@ -16,16 +18,24 @@ const Backdrop: FC<BackdropProps> = (props: BackdropProps) => {
     const onAnimationEnd = (e: AnimationEvent<HTMLDivElement>) => {
       if (e.animationName === css.hideBackdrop) (e.target as HTMLDivElement).style.display = "none";
     }
+    const onClick = (e: MouseEvent<HTMLDivElement>) => {
+      if (e.target === divRef.current) props.clicked();
+    }
 
-    return <div className={classes} 
-                style={{ zIndex: props.level }}
-                onClick={props.clicked}
-                onAnimationStart={onAnimationStart}
-                onAnimationEnd={onAnimationEnd}></div>;
+    return (
+      <div ref={divRef}
+           className={classes} 
+           style={{ zIndex: props.level }}
+           onClick={onClick}
+           onAnimationStart={onAnimationStart}
+           onAnimationEnd={onAnimationEnd}>
+        {props.children}
+      </div>
+    );
   }
-
   return null;
 };
+
 
 interface BackdropProps {
   level: LayerLevel;

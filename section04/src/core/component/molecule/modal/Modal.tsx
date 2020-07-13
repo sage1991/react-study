@@ -1,4 +1,4 @@
-import React, { Fragment, FC, AnimationEvent } from "react";
+import React, { FC, AnimationEvent } from "react";
 import css from "./Modal.module.css";
 import { Backdrop } from "../../atom/backdrop/Backdrop";
 import { Visibility } from "../../../code/Visibility";
@@ -19,15 +19,13 @@ const Modal: FC<ModalProps> = (props) => {
     }
 
     return (
-      <Fragment key={props.status}>
-        <Backdrop status={props.status} clicked={props.close} level={LayerLevel.MODAL}/>
+      <Backdrop key={props.status} status={props.status} clicked={props.close} level={LayerLevel.MODAL}>
         <div className={classes.join("  ")}
-             style={{ zIndex: LayerLevel.MODAL }}
              onAnimationStart={onAnimationStart}
-             onAnimationEnd={onAnimationEnd}>
+             onAnimationEnd={onAnimationEnd} >
           { props.children }
         </div>
-      </Fragment>
+      </Backdrop>
     );
   }
 

@@ -14,6 +14,7 @@ import { Padding } from "../../core/component/atom/padding/Padding";
 import { CrossAxisAlignment } from "../../core/code/flex/CrossAxisAlignment";
 import { MultiLineBehavior } from "../../core/code/flex/MultiLineBehavior";
 import { MainAxisAlignment } from "../../core/code/flex/MainAxisAlignment";
+import { Label } from "../../core/component/atom/label/Label";
 
 
 class BurgerBuilder extends Component<StyleProps, BurgerBuilderState> {
@@ -31,6 +32,8 @@ class BurgerBuilder extends Component<StyleProps, BurgerBuilderState> {
           status={this.state.modal.status}
           close={this.closeModal}>
           <h1>Hello World!</h1>
+          <Label required={true}>your name</Label>
+          <Label>your name</Label>
         </Modal>
         burger
         BuildControl
