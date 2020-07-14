@@ -1,0 +1,29 @@
+
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  will-change: opacity, transform;
+  animation-duration: 200ms;
+}
+
+.show {
+  animation-name: show-popup;
+}
+
+.hide {
+  animation-name: hide-popup;
+}
+
+@keyframes show-popup {
+  0% { transform: translateY(5%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes hide-popup {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(5%); opacity: 0; }
+}

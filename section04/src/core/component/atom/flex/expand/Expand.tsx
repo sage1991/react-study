@@ -5,7 +5,7 @@ const Expand: FC<ExpandProps> = (props) => {
   try {
     Children.only(props.children);
   } catch(e) {
-    throw new Error("FlexItem must have single child");
+    throw new Error("Expand must have single child");
   }
   
   const ratio = props.ratio ?? 0;

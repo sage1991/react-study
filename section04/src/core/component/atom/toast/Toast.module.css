@@ -1,0 +1,33 @@
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20%;
+  transform: translate(-50%, -50%);
+  z-index: 2500;
+  will-change: opacity;
+  animation-duration: 400ms;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+}
+
+.show {
+  animation-name: show-toast;
+}
+
+.hide {
+  animation-name: hide-toast;
+}
+
+
+@keyframes show-toast {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+@keyframes hide-toast {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

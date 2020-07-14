@@ -1,0 +1,57 @@
+.snackbar {
+  position: fixed;
+  left: 5%;
+  bottom: 5%;
+  width: 90%;
+  height: auto;
+  z-index: 2000;
+  background-color: #000000;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 10px;
+  will-change: transform, opacity;
+  transition: box-shadow 300ms;
+  animation-duration: 300ms;
+}
+
+.show {
+  animation-name: show-snackbar;
+  
+}
+
+.hide {
+  animation-name: hide-snackbar;
+}
+
+.snackbar:hover {
+  box-shadow: 3px 3px 10px #333333;
+}
+
+.message {
+  color: #ffffff;
+}
+
+.button {
+  color: #ff4800;
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+  padding: 0px 10px;
+  transition: background-color 300ms;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: rgba(50, 50, 50);
+  cursor: pointer;
+}
+
+@keyframes show-snackbar {
+  0% { transform: translateY(20%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes hide-snackbar {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(20%); opacity: 0; }
+}

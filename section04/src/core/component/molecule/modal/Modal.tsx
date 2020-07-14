@@ -1,9 +1,9 @@
 import React, { FC, AnimationEvent } from "react";
 import css from "./Modal.module.css";
 import { Backdrop } from "../../atom/backdrop/Backdrop";
-import { Visibility } from "../../../code/Visibility";
+import { Visibility } from "../../../code/common/Visibility";
 import { Callback } from "../../../types/function/Callback";
-import { LayerLevel } from "../../../code/LayerLevel";
+import { LayerLevel } from "../../../code/common/LayerLevel";
 
 
 const Modal: FC<ModalProps> = (props) => {

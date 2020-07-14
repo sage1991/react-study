@@ -1,8 +1,8 @@
 import React, { FC, AnimationEvent, MouseEvent, useRef } from "react";
 import css from "./Backdrop.module.css";
-import { Visibility } from "../../../code/Visibility";
+import { Visibility } from "../../../code/common/Visibility";
 import { Callback } from "../../../types/function/Callback";
-import { LayerLevel } from "../../../code/LayerLevel";
+import { LayerLevel } from "../../../code/common/LayerLevel";
 
 
 const Backdrop: FC<BackdropProps> = (props) => {
