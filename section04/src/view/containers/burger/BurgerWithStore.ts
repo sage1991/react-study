@@ -1,13 +1,13 @@
 import { connect } from "react-redux";
-import { Burger as BurgerComponent } from "../../components/Burger/Burger";
 import { StoreState } from "../../../core/store/Store";
+import { Burger } from "../../components/organism/burger/Burger";
 
 const mapStateToProps = (state: StoreState) => {
   return {
-    burger: state.burgerState.burger
+    model: state.burger.burger
   }
 }
 const connectToStore = connect(mapStateToProps);
-const Burger = connectToStore(BurgerComponent);
+const BurgerWithStore = connectToStore(Burger);
 
-export { Burger };
+export { BurgerWithStore };

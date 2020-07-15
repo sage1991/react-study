@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Burger } from "../../Burger/Burger";
-import Button, { ButtonType } from "../../UI/Button/Button";
 import css from "./CheckoutSummary.module.css";
 import { BurgerModel } from "../../../../business/model/BurgerModel";
 
@@ -18,8 +17,6 @@ const CheckoutSummary: FC<CheckoutSummaryProps> = (props) => {
       <div style={{width: "100%", height: "300px", margin: "auto"}}>
         <Burger burger={props.burger} />
       </div>
-      <Button buttonType={ButtonType.Danger} onClick={props.onCancel}>CANCEL</Button>
-      <Button buttonType={ButtonType.Success} onClick={props.onContinue}>CONTINUE</Button>
     </div>
   );
 }

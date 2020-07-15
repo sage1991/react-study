@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./core/store/Store";
-import { BurgerBuilderWithPrice } from "./view/containers/burgerBuilderWithPrice/BurgerBuilderWithPrice";
+import { BurgerBuilderWithPrice } from "./view/containers/burger/BurgerBuilderWithPrice";
 import { Layout } from "./view/page/Layout";
 import { ErrorBoundary } from "./core/hoc/error/ErrorBoundary";
 import { UIContainer } from "./core/container/ui/UIContainer";

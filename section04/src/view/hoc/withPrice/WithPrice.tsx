@@ -2,7 +2,7 @@ import React, { ComponentType, Component } from "react"
 import { firebaseClient } from "../../../core/http/HttpClient";
 import { PriceModelBuilder } from "../../../business/model/PriceModel";
 import { Spinner } from "../../../core/component/atom/spinner/Spinner";
-import { store } from "../../../core/store/Store";
+import { dispatch } from "../../../core/store/Store";
 import { BurgerAction } from "../../../core/store/action/actionType/BurgerAction";
 import { FlexView } from "../../../core/component/atom/flex/FlexView";
 import { MainAxisAlignment } from "../../../core/code/flex/MainAxisAlignment";
@@ -32,7 +32,7 @@ const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
 
     private async getPrice() {
 
-      const response = await firebaseClient.get("/price.jsdon", (data) => {
+      const response = await firebaseClient.get("/price.json", (data) => {
         return new PriceModelBuilder().base(data.base)
                                       .bacon(data.bacon)
                                       .cheese(data.cheese)
@@ -42,7 +42,7 @@ const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
       });
       
       if (response.isSuccess) {
-        store.dispatch({ type: BurgerAction.SET_PRICE, payload: response.data });
+        dispatch({ type: BurgerAction.SET_PRICE, payload: response.data });
         this.setState({ spinner: { show: false }, price: response.data });
       } else {
         throw new Error("fail to get price");

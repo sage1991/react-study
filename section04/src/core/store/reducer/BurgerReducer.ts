@@ -50,9 +50,10 @@ const burgerReducer = (state = initialState, action: Action<BurgerAction>) => {
                                         .build()
       };
     case BurgerAction.SET_PRICE : 
-      const ingredientNames = Object.keys(ingredients) as (keyof typeof Ingredient)[];
-      const totalPrice = ingredientNames.map((name) => state.burger.ingredients[Ingredient[name]] * action.payload[Ingredient[name]])
-                                        .reduce((accumulator, value) => accumulator + value, 0);
+      const names = Object.keys(ingredients) as (keyof typeof Ingredient)[];
+      const priceModal = action.payload as PriceModel;
+      const totalPrice = names.map(name => state.burger.ingredients[name as Ingredient] * priceModal[name as Ingredient])
+                              .reduce((accumulator, value) => accumulator + value, priceModal.base);
       return {
         price: action.payload,
         burger: new BurgerModelBuilder().ingredients({ ...ingredients })

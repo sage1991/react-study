@@ -11,5 +11,5 @@ const reducer = combineReducers({
 const store = createStore(reducer, (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__());
 const dispatch = store.dispatch;
 
-export type StoreState = { burgerState: BurgerState, ui: UIState };
+export type StoreState = { burger: BurgerState, ui: UIState };
 export { store, dispatch };
