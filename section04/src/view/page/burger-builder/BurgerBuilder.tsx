@@ -7,6 +7,7 @@ import { dispatch } from "../../../core/store/Store";
 import { UIAction } from "../../../core/store/action/actionType/UIAction";
 import { Toast } from "../../../core/component/atom/toast/Toast";
 import { Visibility } from "../../../core/code/common/Visibility";
+import { ToastPayload } from "../../../core/store/action/payload/UIPayload";
 
 
 class BurgerBuilder extends Component<{}, BurgerBuilderState> {
@@ -28,8 +29,8 @@ class BurgerBuilder extends Component<{}, BurgerBuilderState> {
   }
 
   private showToast = () => {
-    const id = Date.now();
-    dispatch({ type: UIAction.ADD_TOAST, payload: { id: id, node: <Toast key={id} id={id} status={Visibility.SHOW}>hello!!</Toast> } });
+    const payload: ToastPayload = { id: Date.now(), node: <Toast>hello!!</Toast> };
+    dispatch({ type: UIAction.ADD_TOAST, payload: payload });
   }
 
   private showModal = () => {

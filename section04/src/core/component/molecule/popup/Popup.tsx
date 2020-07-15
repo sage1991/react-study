@@ -1,5 +1,6 @@
 import React, { FC, useState, AnimationEvent, Children, cloneElement } from "react";
 import css from "./Popup.module.css";
+import { PopupProps as InjectedPopupProps } from "../../../types/interface/PopupProps";
 import { LayerLevel } from "../../../code/common/LayerLevel";
 import { Visibility } from "../../../code/common/Visibility";
 import { Callback } from "../../../types/function/Callback";
@@ -20,12 +21,12 @@ const Popup: FC<PopupProps> = (props) => {
   }
 
   const children = Children.map(props.children, child => {
-    return cloneElement(child as any, { close: closePopup });
+    const popupProps: InjectedPopupProps = { popup: { id: props.id, close: closePopup } };
+    return cloneElement(child as any, popupProps);
   });
 
   return (
     <div className={classes.join(" ")} style={style} onAnimationEnd={onAnimationEnd}>
-      <button onClick={closePopup}>close</button>
       { children }
     </div>
   );

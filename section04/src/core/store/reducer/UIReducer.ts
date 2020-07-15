@@ -1,12 +1,10 @@
 import { Action } from "../action/Action";
 import { UIAction } from "../action/actionType/UIAction";
 import { Visibility } from "../../code/common/Visibility";
-import { ReactNode } from "react";
-import { Callback } from "../../types/function/Callback";
+import { SnackbarPayload, ModalPayload, PopupPayload, ToastPayload } from "../action/payload/UIPayload";
 
 
 const initialState: UIState = {
-  drawer: { status: Visibility.NONE, node: null },
   snackbar: { status: Visibility.NONE, message: "", button: "", onClick: () => {} },
   modal: { status: Visibility.NONE, node: null },
   popups: [],
@@ -16,10 +14,6 @@ const initialState: UIState = {
 
 const uiReducer = (state = initialState, action: Action<UIAction>): UIState => {
   switch (action.type) {
-    case UIAction.OPEN_DRAWER : 
-      return { ...state, drawer: { status: Visibility.SHOW, node: action.payload } };
-    case UIAction.CLOSE_DRAWER : 
-      return { ...state, drawer: { ...state.drawer, status: Visibility.HIDE } };
     case UIAction.SHOW_SNACKBAR : 
       return { ...state, snackbar: { status: Visibility.SHOW, message: action.payload.message, button: action.payload.button, onClick: action.payload.onClick } };
     case UIAction.HIDE_SNACKBAR : 
@@ -44,9 +38,8 @@ const uiReducer = (state = initialState, action: Action<UIAction>): UIState => {
 
 export { uiReducer };
 export interface UIState {
-  drawer: { status: Visibility; node: ReactNode; };
-  snackbar: { status: Visibility, message: string; button: string; onClick: Callback; };
-  modal: { status: Visibility, node: ReactNode; };
-  popups: { id: number, node: ReactNode }[];
-  toasts: { id: number, node: ReactNode }[];
+  snackbar: SnackbarPayload;
+  modal: ModalPayload;
+  popups: PopupPayload[];
+  toasts: ToastPayload[];
 };

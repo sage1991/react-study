@@ -1,17 +1,18 @@
 import React, { ReactNode, FC, Children, cloneElement, Fragment } from "react";
 import { Callback } from "../../../types/function/Callback";
+import { Visibility } from "../../../code/common/Visibility";
 
 
 const ToastQueue: FC<ToastQueueProps> = (props) => {
-  if (props.toast.length === 0) return null;
-  const children = Children.map(props.toast, child => cloneElement(child as any, { onRemoved: props.remove }));
+  if (props.toasts.length === 0) return null;
+  const children = props.toasts.map(child => cloneElement(child.node as any, { onRemoved: props.remove, id: child.id, key: child.id }));
   const toast = children?.length ? children[0] : null;
   return <Fragment>{ toast }</Fragment>;
 }
 
 
 interface ToastQueueProps {
-  toast: ReactNode[];
+  toasts: { id: number; node: ReactNode }[];
   remove: Callback;
 }
 

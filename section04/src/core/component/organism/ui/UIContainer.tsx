@@ -23,7 +23,7 @@ class UIContainer extends Component<UIContainerProps> {
         <Snackbar button={snackbar.button} onClick={this.onSnackbarClick} status={snackbar.status}>
           { snackbar.message }
         </Snackbar>
-        <ToastQueue toast={toasts.map(toast => toast.node)} remove={this.props.removeToast} />
+        <ToastQueue toasts={toasts} remove={this.props.removeToast} />
       </Fragment>
     );
   }

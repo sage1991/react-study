@@ -7,7 +7,7 @@ import { Optional } from "../../../types/data/Optional";
 const Toast: FC<ToastProps> = (props) => {
 
   const [ state, setState ] = useState<ToastState>({
-    status: props.status,
+    status: props.status ?? Visibility.SHOW,
     timer: null
   });
 
@@ -36,8 +36,8 @@ const Toast: FC<ToastProps> = (props) => {
 
 
 interface ToastProps {
-  id: number;
-  status: Visibility;
+  id?: number;
+  status?: Visibility;
   onRemoved?: Callback;
 }
 
