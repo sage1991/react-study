@@ -6,7 +6,9 @@ enum UIAction {
   SHOW_SNACKBAR = "/UIAction/SHOW_SNACKBAR",
   HIDE_SNACKBAR = "/UIAction/HIDE_SNACKBAR",
   ADD_POPUP = "/UIAction/ADD_POPUP",
-  REMOVE_POPUP = "/UIAction/REMOVE_POPUP"
+  REMOVE_POPUP = "/UIAction/REMOVE_POPUP",
+  ADD_TOAST = "/UIAction/ADD_TOAST",
+  REMOVE_TOAST = "/UIAction/REMOVE_TOAST"
 }
 
 export { UIAction };

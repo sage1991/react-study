@@ -20,7 +20,7 @@ const Popup: FC<PopupProps> = (props) => {
   }
 
   const children = Children.map(props.children, child => {
-    return cloneElement(child as any, { closePopup: closePopup });
+    return cloneElement(child as any, { close: closePopup });
   });
 
   return (

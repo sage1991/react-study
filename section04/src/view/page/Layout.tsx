@@ -16,13 +16,14 @@ class Layout extends Component<StyleProps, LayoutState> {
   render() {
     return (
       <Fragment>
-        <SideDrawer 
-          show={this.state.sideDrawer.show} 
-          closed={this.closeSideDrawer} 
-          opened={this.openSideDrawer} />
         <Toolbar drawerToggleClicked={this.toggleSideDrawer} />
-        <main className={css.Content}>
-          {this.props.children}
+        <SideDrawer show={this.state.sideDrawer.show} 
+                    closed={this.closeSideDrawer} 
+                    opened={this.openSideDrawer} />
+        <main>
+          <div className={css.Content}>
+            {this.props.children}
+          </div>
         </main>
       </Fragment>
     );

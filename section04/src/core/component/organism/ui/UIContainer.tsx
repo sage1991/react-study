@@ -5,12 +5,13 @@ import { Modal } from "../../molecule/modal/Modal";
 import { Callback } from "../../../types/function/Callback";
 import { LayerLevel } from "../../../code/common/LayerLevel";
 import { PopupStack } from "../../molecule/popup/stack/PopupStack";
+import { ToastQueue } from "../../molecule/toast-queue/ToastQueue";
 
 
 class UIContainer extends Component<UIContainerProps> {
 
   render() {
-    const { modal, popups, snackbar } = this.props.uiState;
+    const { modal, popups, snackbar, toasts } = this.props.uiState;
     return (
       <Fragment>
         <PopupStack level={LayerLevel.FULL_POPUP} >
@@ -22,6 +23,7 @@ class UIContainer extends Component<UIContainerProps> {
         <Snackbar button={snackbar.button} onClick={this.onSnackbarClick} status={snackbar.status}>
           { snackbar.message }
         </Snackbar>
+        <ToastQueue toast={toasts.map(toast => toast.node)} remove={this.props.removeToast} />
       </Fragment>
     );
   }
@@ -38,6 +40,7 @@ interface UIContainerProps {
   hideSnackbar: Callback;
   hideModal: Callback;
   removePopup: Callback;
+  removeToast: Callback;
 }
 
 export { UIContainer };

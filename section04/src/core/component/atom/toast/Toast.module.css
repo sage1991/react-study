@@ -1,15 +1,26 @@
 .toast {
+  max-width: 90%;
   position: fixed;
   left: 50%;
-  bottom: 20%;
+  bottom: 5%;
   transform: translate(-50%, -50%);
   z-index: 2500;
   will-change: opacity;
   animation-duration: 400ms;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
-  border-radius: 10px;
+  padding: 10px 15px;
+  border-radius: 15px;
   color: white;
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none;
+  text-align: center;
+  font-size: 12px;
+}
+
+.toast:hover {
+  cursor: pointer;
 }
 
 .show {
@@ -20,12 +31,10 @@
   animation-name: hide-toast;
 }
 
-
 @keyframes show-toast {
   0% { opacity: 0; }
   100% { opacity: 1; }
 }
-
 
 @keyframes hide-toast {
   0% { opacity: 1; }

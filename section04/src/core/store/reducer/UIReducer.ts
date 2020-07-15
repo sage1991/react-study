@@ -9,7 +9,8 @@ const initialState: UIState = {
   drawer: { status: Visibility.NONE, node: null },
   snackbar: { status: Visibility.NONE, message: "", button: "", onClick: () => {} },
   modal: { status: Visibility.NONE, node: null },
-  popups: []
+  popups: [],
+  toasts: [],
 }
 
 
@@ -31,6 +32,10 @@ const uiReducer = (state = initialState, action: Action<UIAction>): UIState => {
       return { ...state, popups: [ ...state.popups, action.payload ] };
     case UIAction.REMOVE_POPUP : 
       return { ...state, popups: [ ...state.popups ].filter(popup => popup.id !== action.payload) };
+    case UIAction.ADD_TOAST : 
+      return { ...state, toasts: [ ...state.toasts, action.payload ] };
+    case UIAction.REMOVE_TOAST : 
+      return { ...state, toasts: [ ...state.toasts ].filter(toast => toast.id !== action.payload) };
     default : 
       return state;
   }
@@ -43,4 +48,5 @@ export interface UIState {
   snackbar: { status: Visibility, message: string; button: string; onClick: Callback; };
   modal: { status: Visibility, node: ReactNode; };
   popups: { id: number, node: ReactNode }[];
+  toasts: { id: number, node: ReactNode }[];
 };

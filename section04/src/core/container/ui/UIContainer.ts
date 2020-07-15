@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { UIContainer } from "../../component/organism/ui/UIContainer";
 
 const mapStateToProps = (state: StoreState) => {
-  console.log(state);
   return { uiState: state.ui };
 }
 
@@ -15,6 +14,7 @@ const mapDispatchToProps = (dispatch: Dispatch<Action<UIAction>>) => {
     hideSnackbar: () => dispatch({ type: UIAction.HIDE_SNACKBAR, payload: null }),
     hideModal: () => dispatch({ type: UIAction.HIDE_MODAL, payload: null }),
     removePopup: (id: number) => dispatch({ type: UIAction.REMOVE_POPUP, payload: id }),
+    removeToast: (id: number) => dispatch({ type: UIAction.REMOVE_TOAST, payload: id })
   };
 }
 

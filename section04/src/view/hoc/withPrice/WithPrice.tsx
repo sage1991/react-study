@@ -4,6 +4,9 @@ import { PriceModelBuilder } from "../../../business/model/PriceModel";
 import { Spinner } from "../../../core/component/atom/spinner/Spinner";
 import { store } from "../../../core/store/Store";
 import { BurgerAction } from "../../../core/store/action/actionType/BurgerAction";
+import { FlexView } from "../../../core/component/atom/flex/FlexView";
+import { MainAxisAlignment } from "../../../core/code/flex/MainAxisAlignment";
+import { CrossAxisAlignment } from "../../../core/code/flex/CrossAxisAlignment";
 
 
 const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
@@ -21,14 +24,15 @@ const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
 
     render() {
       if (this.state.spinner.show) {
-        return <Spinner />;
+        return <FlexView mainAxisAlignment={MainAxisAlignment.CENTER} crossAxisAlignment={CrossAxisAlignment.CENTER}><Spinner /></FlexView>;
       } else {
         return <WrappedComponent {...this.props} />
       }
     }
 
     private async getPrice() {
-      const response = await firebaseClient.get("/price.json", undefined, (data) => {
+
+      const response = await firebaseClient.get("/price.jsdon", (data) => {
         return new PriceModelBuilder().base(data.base)
                                       .bacon(data.bacon)
                                       .cheese(data.cheese)
@@ -36,13 +40,10 @@ const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
                                       .salad(data.salad)
                                       .build();
       });
-
+      
       if (response.isSuccess) {
         store.dispatch({ type: BurgerAction.SET_PRICE, payload: response.data });
-        this.setState({
-          spinner: { show: false },
-          price: response.data
-        });
+        this.setState({ spinner: { show: false }, price: response.data });
       } else {
         throw new Error("fail to get price");
       }
