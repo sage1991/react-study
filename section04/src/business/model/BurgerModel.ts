@@ -4,6 +4,15 @@ import { Ingredient } from "../code/Ingredient";
 class BurgerModel {
   price: number;
   ingredients: Record<Ingredient, number>;
+
+  get isPurchasable() {
+    const keys = Object.keys(this.ingredients) as Ingredient[];
+    let count = 0;
+    for (let i = 0; i < keys.length; i++) {
+      count += this.ingredients[keys[i]];
+    }
+    return count > 0;
+  }
 }
 
 

@@ -6,7 +6,6 @@
   will-change: transform, opacity;
   animation-fill-mode: forwards;
   transform-origin: 10% 10%;
-  opacity: 1;
   animation-duration: 300ms;
 }
 

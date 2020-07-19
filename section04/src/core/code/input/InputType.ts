@@ -6,7 +6,7 @@ enum InputType {
   HIDDEN = "hidden",
   NUMBER = "number",
   PASSWORD = "password",
-  SECURED_NUMBER = "secured/tel"
+  SELECT = "select",
 }
 
 

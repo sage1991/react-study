@@ -1,7 +1,7 @@
 
 
 class Request<T> {
-  headers: any;
+  headers: any = {};
   payload: T;
 }
 

@@ -6,10 +6,6 @@ import { Button } from "../../../../../core/component/atom/button/Button";
 import { Callback } from "../../../../../core/types/function/Callback";
 import { BurgerModel } from "../../../../../business/model/BurgerModel";
 import { PriceModel } from "../../../../../business/model/PriceModel";
-import { dispatch } from "../../../../../core/store/Store";
-import { ModalPayload } from "../../../../../core/store/action/payload/UIPayload";
-import { PurchaseSummaryWithStore } from "../../../../containers/burger/PurchaseSummaryWithStore";
-import { UIAction } from "../../../../../core/store/action/actionType/UIAction";
 
 
 const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
@@ -27,18 +23,13 @@ const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
     );
   });
 
-  const onPurchase = () => {
-    const payload: ModalPayload = <PurchaseSummaryWithStore />;
-    dispatch({ type: UIAction.SHOW_MODAL, payload: payload });
-  }
-
   return (
     <div className={css.buildControls}>
       <p>Current Price : <strong>{ burgerModel.price.toFixed(2) }</strong></p>
       { controlList }
       <Button className={css.orderButton} 
               disabled={priceModel.base === burgerModel.price}
-              onClick={onPurchase}>
+              onClick={props.onPurchase}>
         Order Now!
       </Button>
     </div>
@@ -51,6 +42,7 @@ interface BuildControlsProps {
   removeIngredient: Callback;
   burgerModel: BurgerModel;
   priceModel: PriceModel;
+  onPurchase: Callback;
 }
 
 export { BuildControls };

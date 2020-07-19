@@ -6,6 +6,8 @@ import { firebase } from "./Axios";
 import { Request } from "./model/Request";
 
 
+const defaultRequest = { headers: {}, payload: null };
+
 class HttpClient {
 
   private instance: AxiosInstance;
@@ -17,7 +19,7 @@ class HttpClient {
   async get<R, T>(url: string, requestOrConverter?: Request<R> | Converter<T>, orConverter?: Converter<T>) {
     
     const { request, converter } = this.parseArguments(requestOrConverter, orConverter);
-    const { headers, payload } = request ?? {};
+    const { headers, payload } = request ?? defaultRequest;
     
     const response = await this.instance.get(payload ? `${url}?${qs.stringify(payload)}` : url, { headers: headers });
     return this.convertResponse(response, converter);
@@ -27,7 +29,7 @@ class HttpClient {
   async post<R, T>(url: string, requestOrConverter?: Request<R> | Converter<T>, orConverter?: Converter<T>) {
 
     const { request, converter } = this.parseArguments(requestOrConverter, orConverter);
-    const { headers, payload } = request ?? {};
+    const { headers, payload } = request ?? defaultRequest;
     
     const response = await this.instance.post(url, { headers: headers, data: this.convertPayload(headers, payload) });
     return this.convertResponse(response, converter);
@@ -37,7 +39,7 @@ class HttpClient {
   async put<R, T>(url: string, requestOrConverter?: Request<R> | Converter<T>, orConverter?: Converter<T>) {
     
     const { request, converter } = this.parseArguments(requestOrConverter, orConverter);
-    const { headers, payload } = request ?? {};
+    const { headers, payload } = request ?? defaultRequest;
     
     const response = await this.instance.put(url, { headers: headers, data: this.convertPayload(headers, payload) });
     return this.convertResponse(response, converter);
@@ -47,7 +49,7 @@ class HttpClient {
   async delete<R, T>(url: string, requestOrConverter?: Request<R> | Converter<T>, orConverter?: Converter<T>) {
     
     const { request, converter } = this.parseArguments(requestOrConverter, orConverter);
-    const { headers, payload } = request ?? {};
+    const { headers, payload } = request ?? defaultRequest;
     
     const response = await this.instance.delete(url, { headers: headers, data: this.convertPayload(headers, payload) });
     return this.convertResponse(response, converter);

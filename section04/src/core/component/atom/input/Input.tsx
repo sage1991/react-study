@@ -1,4 +1,4 @@
-import React, { FC, EventHandler, KeyboardEvent, FocusEvent } from "react";
+import React, { FC, EventHandler, FocusEvent, ChangeEvent, KeyboardEvent } from "react";
 import css from "./Input.module.css";
 import { StyleProps } from "../../../types/interface/StyleProps";
 import { InputStatus } from "../../../code/input/InputStatus";
@@ -11,10 +11,7 @@ const Input: FC<InputProps> = (props) => {
   const classes = [ css.input ];
   
   if (props.className) classes.push(props.className);
-  if (props.type === InputType.SECURED_NUMBER) {
-    classes.push(css.secured);
-    props.type = InputType.TEL;
-  }
+  if (props.secured) classes.push(css.secured);
   
   switch (status) {
     case InputStatus.INVALID :
@@ -31,13 +28,16 @@ const Input: FC<InputProps> = (props) => {
 
 interface InputProps extends StyleProps {
   name: string;
+  value?: string;
   placeholder?: string;
   type?: InputType;
-  onKeyUp?: EventHandler<KeyboardEvent<HTMLInputElement>>;
+  onChange?: EventHandler<ChangeEvent<HTMLInputElement>>;
+  onKeyup?: EventHandler<KeyboardEvent<HTMLInputElement>>;
   onFocus?: EventHandler<FocusEvent<HTMLInputElement>>;
   onBlur?: EventHandler<FocusEvent<HTMLInputElement>>;
   status?: InputStatus;
   inputStyle?: InputStyle;
+  secured?: boolean;
 }
 
 export { Input };

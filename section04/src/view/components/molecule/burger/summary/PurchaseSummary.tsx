@@ -30,6 +30,7 @@ const PurchaseSummary: FC<PurchaseSummaryProps> = (props) => {
   });
 
   const onConfirm = () => {
+    props.onConfirm();
     if (typeof props.close === "function") {
       props.close();
     }
@@ -60,6 +61,7 @@ interface PurchaseSummaryProps {
   priceModel: PriceModel;
   burgerModel: BurgerModel;
   close?: Callback;
+  onConfirm: Callback;
 }
 
 export { PurchaseSummary };
