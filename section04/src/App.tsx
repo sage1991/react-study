@@ -5,7 +5,6 @@ import { store } from "./core/store/Store";
 import { BurgerBuilderWithPrice } from "./view/containers/burger/BurgerBuilderWithPrice";
 import { Layout } from "./view/page/Layout";
 import { ErrorBoundary } from "./core/hoc/error/ErrorBoundary";
-import { UIContainer } from "./core/container/ui/UIContainer";
 
 
 const App: FC = () => {
@@ -17,7 +16,6 @@ const App: FC = () => {
             <Route path="/" exact component={BurgerBuilderWithPrice} />
           </Switch>
         </Layout>
-        <UIContainer />
       </Provider>
     </ErrorBoundary>
   );

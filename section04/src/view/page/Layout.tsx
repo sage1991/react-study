@@ -1,8 +1,8 @@
 import css from "./Layout.module.css";
 import React, { Component, Fragment } from "react";
-import SideDrawer from "../components/Navigation/SideDrawer/SideDrawer";
-import Toolbar from "../components/Navigation/Toolbar/Toolbar";
 import { StyleProps } from "../../core/types/interface/StyleProps";
+import { Toolbar } from "../components/organism/toolbar/Toolbar";
+import { UIContainer } from "../../core/container/ui/UIContainer";
 
 
 class Layout extends Component<StyleProps, LayoutState> {
@@ -16,14 +16,10 @@ class Layout extends Component<StyleProps, LayoutState> {
   render() {
     return (
       <Fragment>
-        <Toolbar drawerToggleClicked={this.toggleSideDrawer} />
-        <SideDrawer show={this.state.sideDrawer.show} 
-                    closed={this.closeSideDrawer} 
-                    opened={this.openSideDrawer} />
-        <main>
-          <div className={css.Content}>
-            {this.props.children}
-          </div>
+        <Toolbar />
+        <UIContainer />
+        <main className={css.content}>
+          {this.props.children}
         </main>
       </Fragment>
     );

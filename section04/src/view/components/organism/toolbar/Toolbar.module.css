@@ -1,4 +1,4 @@
-.Toolbar {
+.toolbar {
   height: 56px;
   width: 100%;
   position: fixed;
@@ -14,17 +14,22 @@
 }
 
 
-.Toolbar nav {
+.navigation {
   height: 100%;
 }
 
-.Logo {
+.logo {
   height: 80%;
+}
+
+.toolbar .drawer-button {
+  width: 40px;
+  height: 40px;
 }
 
 
 @media(max-width:499px) {
-  .DesktopOnly {
+  .desktop-only {
     display: none;
   }
 }

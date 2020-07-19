@@ -1,49 +1,56 @@
-
 import React, { FC } from "react";
 import css from "./BuildControls.module.css";
+import { BuildControl } from "../../../atom/burger/control/BuildControl";
+import { toIngredientName, Ingredient } from "../../../../../business/code/Ingredient";
+import { Button } from "../../../../../core/component/atom/button/Button";
 import { Callback } from "../../../../../core/types/function/Callback";
 import { BurgerModel } from "../../../../../business/model/BurgerModel";
 import { PriceModel } from "../../../../../business/model/PriceModel";
-import { Ingredient, toIngredientName } from "../../../../../business/code/Ingredient";
-import { BuildControl } from "../../../atom/burger/control/BuildControl";
+import { dispatch } from "../../../../../core/store/Store";
+import { ModalPayload } from "../../../../../core/store/action/payload/UIPayload";
+import { PurchaseSummaryWithStore } from "../../../../containers/burger/PurchaseSummaryWithStore";
+import { UIAction } from "../../../../../core/store/action/actionType/UIAction";
 
 
-const BuildControls: FC<BuildControlsProps> = (props) => {
+const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
   
-  const { price, ingredients } = props.burgerModel;
-  const names = Object.keys(ingredients) as (keyof typeof Ingredient)[];
-  const controls = names.map(name => {
-    const ingredient = name as Ingredient;
-    return <BuildControl key={name}
-                         name={toIngredientName(ingredient)} 
-                         add={props.addIngredient.bind(null, ingredient)} 
-                         remove={props.removeIngredient.bind(null, ingredient)}
-                         addable={ingredients[ingredient] < 3}
-                         removable={ingredients[ingredient] > 0} />
+  const { burgerModel, priceModel } = props;
+  const ingredients = Object.keys(burgerModel.ingredients) as Ingredient[];
+  const controlList = ingredients.map((ingredient) => {
+    return (
+      <BuildControl key={ingredient} 
+                    label={toIngredientName(ingredient)}
+                    addable={burgerModel.ingredients[ingredient] < 3}
+                    removable={burgerModel.ingredients[ingredient] > 0}
+                    add={props.addIngredient.bind(null, ingredient)}
+                    remove={props.removeIngredient.bind(null, ingredient)} />
+    );
   });
-  
+
+  const onPurchase = () => {
+    const payload: ModalPayload = <PurchaseSummaryWithStore />;
+    dispatch({ type: UIAction.SHOW_MODAL, payload: payload });
+  }
+
   return (
-    <div className={css.BuildControls}>
-      <p>Current Price : <strong>{ price.toFixed(2) }</strong></p>
-      { controls }
-      <button className={css.OrderButton} 
-              disabled={price === props.priceModel.base}
-              onClick={props.onPurchase}>
-        ORDER NOW!
-      </button>
+    <div className={css.buildControls}>
+      <p>Current Price : <strong>{ burgerModel.price.toFixed(2) }</strong></p>
+      { controlList }
+      <Button className={css.orderButton} 
+              disabled={priceModel.base === burgerModel.price}
+              onClick={onPurchase}>
+        Order Now!
+      </Button>
     </div>
   );
-}
+};
 
 
 interface BuildControlsProps {
   addIngredient: Callback;
   removeIngredient: Callback;
-  onPurchase: Callback;
   burgerModel: BurgerModel;
   priceModel: PriceModel;
 }
-
-
 
 export { BuildControls };

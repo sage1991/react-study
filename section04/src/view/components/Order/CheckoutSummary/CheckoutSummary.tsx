@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import { Burger } from "../../Burger/Burger";
 import css from "./CheckoutSummary.module.css";
 import { BurgerModel } from "../../../../business/model/BurgerModel";
+import { Burger } from "../../organism/burger/Burger";
 
 
 interface CheckoutSummaryProps {
@@ -15,7 +15,7 @@ const CheckoutSummary: FC<CheckoutSummaryProps> = (props) => {
     <div className={css.CheckoutSummary}>
       <h1>hello!</h1>
       <div style={{width: "100%", height: "300px", margin: "auto"}}>
-        <Burger burger={props.burger} />
+        <Burger model={props.burger} />
       </div>
     </div>
   );

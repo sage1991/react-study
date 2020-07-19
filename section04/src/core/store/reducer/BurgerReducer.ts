@@ -22,8 +22,6 @@ const initialPrice = new PriceModelBuilder().bacon(0)
 const initialState: BurgerState = { burger: initialBurger, price: initialPrice };
 
 
-
-
 const burgerReducer = (state = initialState, action: Action<BurgerAction>) => {
   
   let ingredients = state.burger.ingredients;

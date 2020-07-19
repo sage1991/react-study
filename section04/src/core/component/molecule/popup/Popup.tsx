@@ -11,6 +11,7 @@ const Popup: FC<PopupProps> = (props) => {
   const [ state, setState ] = useState<PopupState>({ status: Visibility.SHOW });
   const classes = [ css.popup, state.status === Visibility.SHOW ? css.show : css.hide ];
   const style = { zIndex: props.level ?? LayerLevel.FULL_POPUP };
+  
   const onAnimationEnd = (e: AnimationEvent<HTMLDivElement>) => {
     if (e.animationName === css.hidePopup && typeof props.removeFromStack === "function") {
       props.removeFromStack(props.id);

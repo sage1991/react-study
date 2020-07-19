@@ -1,0 +1,39 @@
+
+.drawer {
+  position: absolute;
+  left: -80%;
+  top: 0;
+  width: 80%;
+  height: 100%;
+  background-color: #ffffff;
+  will-change: transform;
+  animation-duration: 300ms;
+  animation-fill-mode: forwards;
+}
+
+.drawer.show {
+  animation-name: show-drawer;
+}
+
+.drawer.hide {
+  animation-name: hide-drawer;
+}
+
+
+@keyframes show-drawer {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes hide-drawer {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
