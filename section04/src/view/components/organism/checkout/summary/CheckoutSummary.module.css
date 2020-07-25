@@ -9,6 +9,25 @@
   margin: auto;
 }
 
+
+.confirm-button {
+  padding: 10px;
+  margin: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid #5C9210;
+  color: #5C9210;
+}
+
+.cancel-button {
+  padding: 10px;
+  margin: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid #944317;
+  color: #944317;
+}
+
 @media (min-width: 600px) {
   .checkout-summary {
     width: 500px;

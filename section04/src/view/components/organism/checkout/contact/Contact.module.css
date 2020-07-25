@@ -8,6 +8,29 @@
   box-sizing: border-box;
 }
 
+
+.input-field-margin {
+  margin-bottom: 20px;
+}
+
+.input-field-padding {
+  padding: 10px;
+}
+
+.contect .input-field {
+  font-size: 15px;
+  border-bottom: 1px solid #aaaaaa;
+}
+
+.order-button {
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid #5C9210;
+  color: #5C9210;
+}
+
+
 @media (min-width: 600px) {
   .contect {
     width: 500px;

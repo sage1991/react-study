@@ -13,8 +13,8 @@ const CheckoutSummary: FC<CheckoutSummaryProps> = (props) => {
       <div className={css.burgerWrap}>
         <Burger model={props.model} />
       </div>
-      <Button onClick={props.onCancel}>cancel</Button>
-      <Button onClick={props.onContinue}>continue</Button>
+      <Button className={css.cancelButton} onClick={props.onCancel}>cancel</Button>
+      <Button className={css.confirmButton} onClick={props.onContinue}>continue</Button>
     </div>
   );
 }

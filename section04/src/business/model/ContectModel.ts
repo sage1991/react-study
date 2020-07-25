@@ -1,4 +1,3 @@
-import { BurgerModel } from "./BurgerModel";
 
 
 class ContectModel {
@@ -6,7 +5,6 @@ class ContectModel {
   street: string;
   email: string;
   cellphone: string;
-  burger: BurgerModel;
 }
 
 
@@ -35,9 +33,12 @@ class ContectModelBuilder {
     return this;
   }
 
-  burger(burger: BurgerModel) {
-    this.instance.burger = burger;
-    return this;
+
+  fromJson(data: any) {
+    return this.name(data.name)
+                .street(data.street)
+                .email(data.email)
+                .cellphone(data.cellphone);
   }
 
   build() {

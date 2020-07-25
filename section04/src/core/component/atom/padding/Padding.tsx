@@ -8,9 +8,9 @@ const Padding: FC<PaddingProps> = (props) => {
   const children = Children.map(props.children, (child) => {
     const childAsAny = child as any;
     let style = { ...rest };
-    let childClassName;
+    let childClassName = className;
     if (childAsAny.props?.style) style = { ...childAsAny.props.style};
-    if (childAsAny.props?.className) childClassName = `${childAsAny.props.className} ${className ? ` ${className}`: ""}`
+    if (childAsAny.props?.className) childClassName = `${childAsAny.props.className}${className ? ` ${className}`: ""}`
     return cloneElement(childAsAny, { style: style, className: childClassName });
   });
 

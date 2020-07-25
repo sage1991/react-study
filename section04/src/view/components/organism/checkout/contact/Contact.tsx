@@ -10,6 +10,12 @@ import { ContectModelBuilder } from "../../../../../business/model/ContectModel"
 import { validate } from "../../../../../core/utils/validation/Validate";
 import { ValidationModelBuilder } from "../../../../../core/utils/validation/model/ValidationModel";
 import { Constraint } from "../../../../../core/code/common/Constraint";
+import { FlexView } from "../../../../../core/component/atom/flex/FlexView";
+import { FlexDirection } from "../../../../../core/code/flex/FlexDirection";
+import { CrossAxisAlignment } from "../../../../../core/code/flex/CrossAxisAlignment";
+import { Margin } from "../../../../../core/component/atom/margin/Margin";
+import { Padding } from "../../../../../core/component/atom/padding/Padding";
+import { OrderModelBuilder } from "../../../../../business/model/OrderModel";
 
 
 const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
@@ -57,13 +63,19 @@ class Contact extends Component<ContactProps, ContactState> {
     const { name, street, email, cellphone } = this.state;
     return (
       <div className={css.contect}>
-        <h4>Enter your contact data</h4>
+        <h4>- Enter your contact data -</h4>
         <form onSubmit={this.onSubmit}>
-          <Input name="name" value={name.value} placeholder="Your Name" onChange={this.onChange} />
-          <Input name="street" value={street.value} placeholder="street" onChange={this.onChange} />
-          <Input name="email" value={email.value} placeholder="your email" onChange={this.onChange} />
-          <Input name="cellphone" value={cellphone.value} type={InputType.TEL} placeholder="your cellphone" onChange={this.onChange} />
-          <Button type={ButtonType.SUBMIT} disabled={!this.submitable}>order</Button>
+          <FlexView direction={FlexDirection.COLUMN} crossAxisAlignment={CrossAxisAlignment.STRETCH}>
+            <Margin className={css.inputFieldMargin}>
+              <Padding className={css.inputFieldPadding}>
+                <Input className={css.inputField} name="name" value={name.value} placeholder="Your Name" onChange={this.onChange} />
+                <Input className={css.inputField} name="street" value={street.value} placeholder="street" onChange={this.onChange} />
+                <Input className={css.inputField} name="email" value={email.value} placeholder="your email" onChange={this.onChange} />
+                <Input className={css.inputField} name="cellphone" value={cellphone.value} type={InputType.TEL} placeholder="your cellphone" onChange={this.onChange} />
+                <Button className={css.orderButton} type={ButtonType.SUBMIT} disabled={!this.submitable}>order</Button>
+              </Padding>
+            </Margin>
+          </FlexView>
         </form>
       </div>
     );
@@ -76,7 +88,10 @@ class Contact extends Component<ContactProps, ContactState> {
                                                   .email(this.state.email.value)
                                                   .cellphone(this.state.cellphone.value)
                                                   .build();
-    this.props.onOrder(contectModel);
+    const orderModel = new OrderModelBuilder().contect(contectModel)
+                                              .burger(this.props.model)
+                                              .build();
+    this.props.onOrder(orderModel);
   }
 
   private onChange = (e: ChangeEvent<HTMLInputElement>) => {

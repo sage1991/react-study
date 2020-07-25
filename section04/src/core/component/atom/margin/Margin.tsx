@@ -8,9 +8,9 @@ const Margin: FC<MarginProps> = (props) => {
   const children = Children.map(props.children, (child) => {
     const childAsAny = child as any;
     let childStyle = { ...rest, ...style };
-    let childClassName;
+    let childClassName = className;
     if (childAsAny.props?.style) childStyle = { ...childAsAny.props.style};
-    if (childAsAny.props?.className) childClassName = `${childAsAny.props.className} ${className ? ` ${className}`: ""}`
+    if (childAsAny.props?.className) childClassName = `${childAsAny.props.className ?? ""}${className ? ` ${className}`: ""}`
     return cloneElement(childAsAny, { style: childStyle, className: childClassName });
   });
 

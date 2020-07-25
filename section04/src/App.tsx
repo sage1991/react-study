@@ -6,7 +6,7 @@ import { BurgerBuilderWithPrice } from "./view/containers/burger/BurgerBuilderWi
 import { Layout } from "./view/page/Layout";
 import { ErrorBoundary } from "./core/hoc/error/ErrorBoundary";
 import { Checkout } from "./view/page/checkout/Checkout";
-
+import { Order } from "./view/page/order/Order";
 
 const App: FC = () => {
   return (
@@ -16,6 +16,7 @@ const App: FC = () => {
           <Switch>
             <Route path="/" exact component={BurgerBuilderWithPrice} />
             <Route path="/checkout" component={Checkout} />
+            <Route path="/orders" component={Order} />
             <Redirect to="/" />
           </Switch>
         </Layout>

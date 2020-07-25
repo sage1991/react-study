@@ -19,7 +19,7 @@ class Layout extends Component<StyleProps, LayoutState> {
         <Toolbar />
         <UIContainer />
         <main className={css.content}>
-          {this.props.children}
+          { this.props.children }
         </main>
       </Fragment>
     );

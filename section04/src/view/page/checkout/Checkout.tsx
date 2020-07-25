@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { CheckoutSummaryWithStore } from "../../containers/checkout/CheckoutSummaryWithStore";
 import { RouteComponentProps, Route } from "react-router-dom";
 import { ContactWithStore } from "../../containers/checkout/ContactWithStore";
-import { ContectModel } from "../../../business/model/ContectModel";
 import { firebaseClient } from "../../../core/http/HttpClient";
 import { RequestBuilder } from "../../../core/http/model/Request";
+import { OrderModel } from "../../../business/model/OrderModel";
 
 
 class Checkout extends Component<RouteComponentProps> {
@@ -24,7 +24,6 @@ class Checkout extends Component<RouteComponentProps> {
   }
 
   private onContinue = () => {
-    console.log(this.props);
     this.props.history.replace(`${this.props.match.path}/contact`);
   }
 
@@ -32,11 +31,14 @@ class Checkout extends Component<RouteComponentProps> {
     return <ContactWithStore onOrder={this.onOrder} />;
   }
 
-  private onOrder = async (contectModel: ContectModel) => {
-    const request = new RequestBuilder<ContectModel>().payload(contectModel).build();
+  private onOrder = async (orderModel: OrderModel) => {
+    const request = new RequestBuilder<OrderModel>().payload(orderModel).build();
     const response = await firebaseClient.post("/orders.json", request);
-    console.log(response);
-    this.props.history.push("/order");
+    if (response.isSuccess) {
+      this.props.history.push("/orders");
+    } else {
+      throw new Error("fail to order");
+    }
   }
 
 }
