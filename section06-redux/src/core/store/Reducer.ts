@@ -1,4 +1,4 @@
-import { CounterAction } from "./Action";
+import { CounterAction } from "./action/Action";
 import { combineReducers } from "redux";
 import { CounterState, ResultState } from "./Store";
 import { Action } from "./type/Action";

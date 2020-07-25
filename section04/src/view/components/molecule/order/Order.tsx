@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import css from "./Order.module.css";
 import { OrderModel } from "../../../../business/model/OrderModel";
 
-
 const Order: FC<OrderProps> = (props) => {
   return (
     <li className={css.order}>
@@ -12,7 +11,6 @@ const Order: FC<OrderProps> = (props) => {
     </li>
   );
 }
-
 
 interface OrderProps {
   model: OrderModel;

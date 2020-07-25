@@ -4,12 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from "react-redux";
-import { counterStore } from './core/store/Store';
+import { store } from './core/store/Store';
 
 
 const CounterApplication = (
   <React.StrictMode>
-    <Provider store={counterStore}>
+    <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>
