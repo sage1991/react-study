@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import { CounterOutput } from "../../components/CounterOutput/CounterOutput";
 import { CounterControl } from "../../components/CounterControl/CounterControl";
-import { CounterAction, ActionCreator } from "../../core/store/action/Action";
 import { connect } from "react-redux";
-import { CounterState, ResultState } from "../../core/store/Store";
-import { Dispatch, Action } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { CounterActionCreator } from "../../core/store/action/ActionCreator";
+import { CounterAction } from "../../core/store/type/CounterAction";
+import { CounterStoreState } from "../../core/store/Reducer";
 
 
 type CounterProps = {
@@ -43,21 +44,21 @@ const Counter: FC<CounterProps> = props => {
 }
 
 
-const mapStoreStateToProps = (state: { counterState: CounterState, resultState: ResultState }) => {
+const mapStoreStateToProps = (state: CounterStoreState) => {
   return {
-    counter: state.counterState.counter,
-    results: state.resultState.results
+    counter: state.counter.counter,
+    results: state.results.results
   };
 };
 
-const mapStoreDispatcherToProps = (dispatch: Dispatch<Action<CounterAction>>) => {
+const mapStoreDispatcherToProps = (dispatch: ThunkDispatch<CounterStoreState, null, CounterAction>) => {
   return {
-    onIncrememtCounter: () => dispatch(ActionCreator.increment()),
-    onDecrememtCounter: () => dispatch(ActionCreator.decrement()),
-    onAddCounter: () => dispatch(ActionCreator.add()),
-    onSubtractCounter: () => dispatch(ActionCreator.subtract()),
-    onStoreResults: (counter: number) => ActionCreator.asyncStoreResult(counter),
-    onDeleteResults: (id: number) => dispatch(ActionCreator.deleteResult(id)),
+    onIncrememtCounter: () => dispatch(CounterActionCreator.increment()),
+    onDecrememtCounter: () => dispatch(CounterActionCreator.decrement()),
+    onAddCounter: () => dispatch(CounterActionCreator.add(5)),
+    onSubtractCounter: () => dispatch(CounterActionCreator.subtract(5)),
+    onStoreResults: (counter: number) => dispatch(CounterActionCreator.asyncStoreResult(counter)),
+    onDeleteResults: (id: number) => dispatch(CounterActionCreator.deleteResult(id)),
   };
 };
 
@@ -65,4 +66,3 @@ const reduxConnector = connect(mapStoreStateToProps, mapStoreDispatcherToProps);
 const ConnectedCounter = reduxConnector(Counter);
 
 export { ConnectedCounter };
-
