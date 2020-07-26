@@ -5,7 +5,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { dispatch } from "../../../core/store/Store";
 import { ModalPayload } from "../../../core/store/action/payload/UIPayload";
 import { PurchaseSummaryWithStore } from "../../containers/burger/PurchaseSummaryWithStore";
-import { UIAction } from "../../../core/store/action/actionType/UIAction";
+import { UIActionBuilder } from "../../../core/store/action/builder/UIActionBuilder";
 
 const BurgerBuilder: FC<RouteComponentProps> = (props) => {
 
@@ -15,7 +15,7 @@ const BurgerBuilder: FC<RouteComponentProps> = (props) => {
 
   const onPurchase = () => {
     const payload: ModalPayload = <PurchaseSummaryWithStore onConfirm={onConfirm} />;
-    dispatch({ type: UIAction.SHOW_MODAL, payload: payload });
+    dispatch(UIActionBuilder.showModal(payload));
   }
 
   return (

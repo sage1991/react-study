@@ -1,21 +1,22 @@
 import { StoreState } from "../../store/Store";
 import { Dispatch } from "redux";
 import { Action } from "../../store/action/Action";
-import { UIAction } from "../../store/action/actionType/UIAction";
+import { UIActionType } from "../../store/action/type/UIAction";
 import { connect } from "react-redux";
 import { UIContainer } from "../../component/organism/ui/UIContainer";
+import { UIActionBuilder } from "../../store/action/builder/UIActionBuilder";
 
 const mapStateToProps = (state: StoreState) => {
   return { uiState: state.ui };
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<UIAction>>) => {
+const mapDispatchToProps = (dispatch: Dispatch<Action<UIActionType>>) => {
   return {
-    hideSnackbar: () => dispatch({ type: UIAction.HIDE_SNACKBAR, payload: null }),
-    hideModal: () => dispatch({ type: UIAction.HIDE_MODAL, payload: null }),
-    removePopup: (id: number) => dispatch({ type: UIAction.REMOVE_POPUP, payload: id }),
-    removeToast: (id: number) => dispatch({ type: UIAction.REMOVE_TOAST, payload: id }),
-    closeDrawer: () => dispatch({ type: UIAction.HIDE_DRAWER, payload: null })
+    hideSnackbar: () => dispatch(UIActionBuilder.hideSnackbar()),
+    hideModal: () => dispatch(UIActionBuilder.hideModal()),
+    removePopup: (id: number) => dispatch(UIActionBuilder.removePopup(id)),
+    removeToast: (id: number) => dispatch(UIActionBuilder.removeToast(id)),
+    closeDrawer: () => dispatch(UIActionBuilder.hideDrawer())
   };
 }
 

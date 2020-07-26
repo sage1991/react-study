@@ -1,19 +1,19 @@
 import React, { ComponentType, Component } from "react";
 import { firebaseClient } from "../../../core/http/HttpClient";
 import { Spinner } from "../../../core/component/atom/spinner/Spinner";
-import { OrderModelBuilder } from "../../../business/model/OrderModel";
+import { OrderModelBuilder, OrderModel } from "../../../business/model/OrderModel";
 import { ContectModelBuilder } from "../../../business/model/ContectModel";
 import { BurgerModelBuilder } from "../../../business/model/BurgerModel";
 
 
 
-const withOrders = <P extends Object> (WrappedComponent: ComponentType<P>) => {
+const withOrders = <P extends WrappedComponentProps> (WrappedComponent: ComponentType<P>) => {
 
-  return class extends Component<P> {
+  return class extends Component<{}, WithOrderState> {
     
-    state = {
+    state: WithOrderState = {
       spinner: { show: true },
-      orders: null,
+      orders: [],
     };
 
     componentDidMount() {
@@ -22,7 +22,7 @@ const withOrders = <P extends Object> (WrappedComponent: ComponentType<P>) => {
 
     render() {
       if (this.state.spinner.show) return <Spinner />;
-      return <WrappedComponent { ...this.props } orders={this.state.orders} />;
+      return <WrappedComponent {...this.props as P} orders={this.state.orders} />;
     }
 
     private getOrderList = async () => {
@@ -50,6 +50,15 @@ const withOrders = <P extends Object> (WrappedComponent: ComponentType<P>) => {
     }
 
   }
+}
+
+interface WithOrderState {
+  spinner: { show: boolean };
+  orders: OrderModel[];
+}
+
+interface WrappedComponentProps {
+  orders?: OrderModel[];
 }
 
 

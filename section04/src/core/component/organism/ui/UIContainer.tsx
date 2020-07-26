@@ -33,10 +33,12 @@ class UIContainer extends Component<UIContainerProps> {
   }
 
   private onSnackbarClick = () => {
-    this.props.uiState.snackbar.onClick();
+    if (typeof this.props.uiState.snackbar.onClick === "function") {
+      this.props.uiState.snackbar.onClick();
+    }
     this.props.hideSnackbar();
   }
-
+  
 }
 
 interface UIContainerProps {

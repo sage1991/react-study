@@ -35,7 +35,7 @@ const Snackbar: FC<SnackbarProps> = (props) => {
               { props.children }
             </p>
           </Expand>
-          <button className={css.button} onClick={onClick}>{ props.button }</button>
+          <button className={css.button} onClick={onClick}>{ props.button ?? "확인" }</button>
         </FlexView>
       </div>
     );
@@ -47,7 +47,7 @@ const Snackbar: FC<SnackbarProps> = (props) => {
 
 interface SnackbarProps {
   onClick: Callback;
-  button: string;
+  button?: string;
   status: Visibility;
 }
 

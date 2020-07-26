@@ -1,5 +1,4 @@
-import { Action } from "../action/Action";
-import { UIAction } from "../action/actionType/UIAction";
+import { UIActionType, UIAction } from "../action/type/UIAction";
 import { Visibility } from "../../code/common/Visibility";
 import { ReactNode } from "react";
 import { Callback } from "../../types/function/Callback";
@@ -14,29 +13,29 @@ const initialState: UIState = {
 }
 
 
-const uiReducer = (state = initialState, action: Action<UIAction>): UIState => {
+const uiReducer = (state = initialState, action: UIAction): UIState => {
   switch (action.type) {
-    case UIAction.SET_DRAWER : 
+    case UIActionType.SET_DRAWER : 
       return { ...state, drawer: { ...state.drawer, node: action.payload } };
-    case UIAction.SHOW_DRAWER :
+    case UIActionType.SHOW_DRAWER :
       return { ...state, drawer: { status: Visibility.SHOW, node: action.payload ?? state.drawer.node } };
-    case UIAction.HIDE_DRAWER :
+    case UIActionType.HIDE_DRAWER :
       return { ...state, drawer: { ...state.drawer, status: Visibility.HIDE } };
-    case UIAction.SHOW_SNACKBAR : 
+    case UIActionType.SHOW_SNACKBAR : 
       return { ...state, snackbar: { status: Visibility.SHOW, message: action.payload.message, button: action.payload.button, onClick: action.payload.onClick } };
-    case UIAction.HIDE_SNACKBAR : 
+    case UIActionType.HIDE_SNACKBAR : 
       return { ...state, snackbar: { ...state.snackbar, status: Visibility.HIDE } };
-    case UIAction.SHOW_MODAL : 
+    case UIActionType.SHOW_MODAL : 
       return { ...state, modal: { status: Visibility.SHOW, node: action.payload } };
-    case UIAction.HIDE_MODAL : 
+    case UIActionType.HIDE_MODAL : 
       return { ...state, modal: { ...state.modal, status: Visibility.HIDE } };
-    case UIAction.ADD_POPUP : 
+    case UIActionType.ADD_POPUP : 
       return { ...state, popups: [ ...state.popups, { id: Date.now(), node: action.payload } ] };
-    case UIAction.REMOVE_POPUP : 
+    case UIActionType.REMOVE_POPUP : 
       return { ...state, popups: [ ...state.popups ].filter(popup => popup.id !== action.payload) };
-    case UIAction.ADD_TOAST : 
+    case UIActionType.ADD_TOAST : 
       return { ...state, toasts: [ ...state.toasts, { id: Date.now(), node: action.payload } ] };
-    case UIAction.REMOVE_TOAST : 
+    case UIActionType.REMOVE_TOAST : 
       return { ...state, toasts: [ ...state.toasts ].filter(toast => toast.id !== action.payload) };
     default : 
       return state;

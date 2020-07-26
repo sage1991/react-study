@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { Action } from "../../../core/store/action/Action";
-import { BurgerAction } from "../../../core/store/action/actionType/BurgerAction";
+import { BurgerAction } from "../../../core/store/action/type/BurgerAction";
 import { Ingredient } from "../../../business/code/Ingredient";
 import { StoreState } from "../../../core/store/Store";
 import { BuildControls } from "../../components/molecule/burger/controls/BuildControls";
+import { BurgerActionBuilder } from "../../../core/store/action/builder/BurgerActionBuilder";
 
 const mapStateToProps = (state: StoreState) => {
   return {
@@ -13,10 +13,10 @@ const mapStateToProps = (state: StoreState) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<Action<BurgerAction>>) => {
+const mapDispatchToProps = (dispatch: Dispatch<BurgerAction>) => {
   return {
-    addIngredient: (ingredient: Ingredient) => dispatch({ type: BurgerAction.ADD_INGREDIENTS, payload: { ingredient: ingredient, count: 1 } }),
-    removeIngredient: (ingredient: Ingredient) => dispatch({ type: BurgerAction.REMOVE_INGREDIENTS, payload: { ingredient: ingredient, count: 1 } })
+    addIngredient: (ingredient: Ingredient) => dispatch(BurgerActionBuilder.addIngredients(ingredient, 1)),
+    removeIngredient: (ingredient: Ingredient) => dispatch(BurgerActionBuilder.removeIngredients(ingredient, 1))
   };
 }
 

@@ -1,4 +1,6 @@
-enum UIAction {
+import { Action } from "../Action";
+
+enum UIActionType {
   SHOW_MODAL = "/UIAction/SHOW_MODAL",
   HIDE_MODAL = "/UIAction/HIDE_MODAL",
   SHOW_SNACKBAR = "/UIAction/SHOW_SNACKBAR",
@@ -12,4 +14,5 @@ enum UIAction {
   SET_DRAWER = "/UIAction/SET_DRAWER",
 }
 
-export { UIAction };
+export type UIAction = Action<UIActionType>;
+export { UIActionType };

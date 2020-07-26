@@ -1,6 +1,6 @@
 
 
-export interface Action<T> {
+export interface Action<T = any, P = any> {
   type: T;
-  payload: any;
+  payload: P;
 }

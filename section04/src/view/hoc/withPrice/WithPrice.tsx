@@ -3,10 +3,10 @@ import { firebaseClient } from "../../../core/http/HttpClient";
 import { PriceModelBuilder } from "../../../business/model/PriceModel";
 import { Spinner } from "../../../core/component/atom/spinner/Spinner";
 import { dispatch } from "../../../core/store/Store";
-import { BurgerAction } from "../../../core/store/action/actionType/BurgerAction";
 import { FlexView } from "../../../core/component/atom/flex/FlexView";
 import { MainAxisAlignment } from "../../../core/code/flex/MainAxisAlignment";
 import { CrossAxisAlignment } from "../../../core/code/flex/CrossAxisAlignment";
+import { BurgerActionBuilder } from "../../../core/store/action/builder/BurgerActionBuilder";
 
 
 const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
@@ -42,7 +42,7 @@ const withPrice = <P extends Object> (WrappedComponent: ComponentType<P>) => {
       });
       
       if (response.isSuccess) {
-        dispatch({ type: BurgerAction.SET_PRICE, payload: response.data });
+        dispatch(BurgerActionBuilder.setPrice(response.data));
         this.setState({ spinner: { show: false }, price: response.data });
       } else {
         throw new Error("fail to get price");
