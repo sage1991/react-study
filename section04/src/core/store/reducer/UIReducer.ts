@@ -4,16 +4,29 @@ import { ReactNode } from "react";
 import { Callback } from "../../types/function/Callback";
 
 
-const initialState: UIState = {
-  snackbar: { status: Visibility.NONE, message: "", button: "", onClick: () => {} },
-  modal: { status: Visibility.NONE, node: null },
-  drawer: { status: Visibility.NONE, node: null },
-  popups: [],
-  toasts: [],
+/**
+ * [ initial conditions ]
+ */
+const INITIAL_SNACKBAR_STATE = { status: Visibility.NONE, message: "", button: "", onClick: () => {} };
+const INITIAL_MODAL_STATE = { status: Visibility.NONE, node: null };
+const INITIAL_DRAWER_STATE = { status: Visibility.NONE, node: null };
+const INITIAL_POPUPS_STATE: { id: number; node: ReactNode; }[] = [];
+const INITIAL_TOASTS_STATE: { id: number; node: ReactNode; }[] = [];
+
+const INITIAL_UI_STATE: UIState = {
+  snackbar: INITIAL_SNACKBAR_STATE,
+  modal: INITIAL_MODAL_STATE,
+  drawer: INITIAL_DRAWER_STATE,
+  popups: INITIAL_POPUPS_STATE,
+  toasts: INITIAL_TOASTS_STATE,
 }
 
 
-const uiReducer = (state = initialState, action: UIAction): UIState => {
+/**
+ * [ reducer ]
+ */
+
+const uiReducer = (state = INITIAL_UI_STATE, action: UIAction): UIState => {
   switch (action.type) {
     case UIActionType.SET_DRAWER : 
       return { ...state, drawer: { ...state.drawer, node: action.payload } };

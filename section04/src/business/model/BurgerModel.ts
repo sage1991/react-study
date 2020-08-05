@@ -15,7 +15,6 @@ class BurgerModel {
   }
 }
 
-
 class BurgerModelBuilder {
 
   private instance = new BurgerModel();

@@ -5,6 +5,10 @@ class PriceModel {
   cheese: number;
   salad: number;
   base: number;
+
+  get isEmpty() {
+    return (this.meat + this.bacon + this.cheese + this.salad + this.base) === 0;
+  };
 }
 
 class PriceModelBuilder {

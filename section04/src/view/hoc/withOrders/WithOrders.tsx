@@ -1,65 +1,61 @@
 import React, { ComponentType, Component } from "react";
-import { firebaseClient } from "../../../core/http/HttpClient";
 import { Spinner } from "../../../core/component/atom/spinner/Spinner";
-import { OrderModelBuilder, OrderModel } from "../../../business/model/OrderModel";
-import { ContectModelBuilder } from "../../../business/model/ContectModel";
-import { BurgerModelBuilder } from "../../../business/model/BurgerModel";
+import { MainAxisAlignment } from "../../../core/code/flex/MainAxisAlignment";
+import { CrossAxisAlignment } from "../../../core/code/flex/CrossAxisAlignment";
+import { FlexView } from "../../../core/component/atom/flex/FlexView";
+import { ThunkDispatch } from "redux-thunk";
+import { StoreState } from "../../../core/store/Store";
+import { OrderAction } from "../../../core/store/action/type/OrderAction";
+import { Callback } from "../../../core/types/function/Callback";
+import { OrderActionBuilder } from "../../../core/store/action/builder/OrderActionBuilder";
+import { connect } from "react-redux";
 
 
 
-const withOrders = <P extends WrappedComponentProps> (WrappedComponent: ComponentType<P>) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<StoreState, null, OrderAction>) => {
+  return {
+    getOrders: (success: Callback, fail: Callback) => dispatch(OrderActionBuilder.getOrders(success, fail)),
+  }
+}
 
-  return class extends Component<{}, WithOrderState> {
+const connector = connect(null, mapDispatchToProps);
+
+
+const withOrders = <P extends Object> (WrappedComponent: ComponentType<P>) => {
+
+  const ComponentWithOrders = class extends Component<P & WithOrdersProps, WithOrderState> {
     
-    state: WithOrderState = {
-      spinner: { show: true },
-      orders: [],
-    };
-
+    state = { spinner: { show: true } };
+    
     componentDidMount() {
-      this.getOrderList();
+      this.props.getOrders(this.success, this.fail);
     }
 
     render() {
-      if (this.state.spinner.show) return <Spinner />;
-      return <WrappedComponent {...this.props as P} orders={this.state.orders} />;
+      if (this.state.spinner.show) return <FlexView mainAxisAlignment={MainAxisAlignment.CENTER} crossAxisAlignment={CrossAxisAlignment.CENTER}><Spinner /></FlexView>;
+      const { getOrders, ...rest } = this.props;
+      return <WrappedComponent {...rest as P} />;
     }
 
-    private getOrderList = async () => {
-      const response = await firebaseClient.get("/orders.json", data => {
-        return Object.keys(data).map(key => {
-          return this.convertToOrderList(key, data[key].data);
-        });
-      });
-      this.setState({
-        spinner: { show: false },
-        orders: response.data
-      });
+    private success = () => {
+      this.setState({ spinner: { show: false } });
     }
 
-    private convertToOrderList = (id: string, orderData: any) => {
-      const contectModel = new ContectModelBuilder().fromJson(orderData.contect)
-                                                    .build();
-      const burgerModel = new BurgerModelBuilder().ingredients(orderData.burger.ingredients)
-                                                  .price(orderData.burger.price)
-                                                  .build();
-      return new OrderModelBuilder().burger(burgerModel)
-                                    .contect(contectModel)
-                                    .id(id)
-                                    .build();
+    private fail = (error: any) => {
+      throw new Error("fail to fetch orders from server");
     }
-
   }
+
+  return connector(ComponentWithOrders as any);
+}
+
+
+interface WithOrdersProps {
+  getOrders: (success: Callback, fail: Callback) => void
 }
 
 interface WithOrderState {
   spinner: { show: boolean };
-  orders: OrderModel[];
 }
-
-interface WrappedComponentProps {
-  orders?: OrderModel[];
-}
-
 
 export { withOrders };

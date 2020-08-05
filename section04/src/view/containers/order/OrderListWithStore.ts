@@ -1,14 +1,15 @@
 import { StoreState } from "../../../core/store/Store";
 import { connect } from "react-redux";
-import { Contact } from "../../components/organism/checkout/contact/Contact";
+import { OrderList } from "../../components/organism/order/OrderList";
+
 
 const mapStateToProps = (state: StoreState) => {
   return {
-    model: state.burger.burger
+    orders: state.order.orders
   }
 }
 
 const connector = connect(mapStateToProps);
-const ContactWithStore = connector(Contact);
+const OrderListWithStore = connector(OrderList);
 
-export { ContactWithStore };
+export { OrderListWithStore };

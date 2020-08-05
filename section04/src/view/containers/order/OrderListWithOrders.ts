@@ -1,5 +1,5 @@
 import { withOrders } from "../../hoc/withOrders/WithOrders";
-import { OrderList } from "../../components/organism/order/OrderList";
+import { OrderListWithStore } from "./OrderListWithStore";
 
-const OrderListWithOrders = withOrders(OrderList);
+const OrderListWithOrders = withOrders(OrderListWithStore);
 export { OrderListWithOrders };
