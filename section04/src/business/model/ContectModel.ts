@@ -1,5 +1,7 @@
+import { Cloneable } from "../../core/decorator/Cloneable";
 
 
+@Cloneable
 class ContectModel {
   name: string;
   street: string;

@@ -24,6 +24,8 @@ const Button: FC<ButtonProps> = (props) => {
         if (buttonStyle?.touchEnd) classes.push(buttonStyle.touchEnd);
         break;
     }
+  } else {
+    if (buttonStyle?.disabled) classes.push(buttonStyle.disabled);
   }
   
 

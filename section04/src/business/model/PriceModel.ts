@@ -1,4 +1,7 @@
+import { Cloneable } from "../../core/decorator/Cloneable";
 
+
+@Cloneable
 class PriceModel {
   meat: number;
   bacon: number;

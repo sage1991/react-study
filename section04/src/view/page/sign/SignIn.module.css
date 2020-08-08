@@ -1,0 +1,51 @@
+.sign-in {
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 2px 3px #ccc;
+  border: 1px solid #eee;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.input-field-margin {
+  margin-bottom: 20px;
+}
+
+.input-field-padding {
+  padding: 10px;
+}
+
+.input-field {
+  font-size: 15px;
+  border-bottom: 1px solid #aaaaaa;
+}
+
+.input-field.invalid {
+  border-bottom: 1px solid #ff0000;
+}
+
+.input-field.valid {
+  border-bottom: 1px solid #5C9210;
+}
+
+.sign-in-button {
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: 1px solid #5C9210;
+  color: #5C9210;
+  transition: border 500ms, color 500ms;
+}
+
+.sign-in-button.disabled {
+  border: 1px solid #dddddd;
+  color: #dddddd;
+}
+
+
+@media (min-width: 600px) {
+  .sign-in {
+    width: 500px;
+  }
+}

@@ -1,6 +1,8 @@
 import { ContectModel } from "./ContectModel";
 import { BurgerModel } from "./BurgerModel";
+import { Cloneable } from "../../core/decorator/Cloneable";
 
+@Cloneable
 class OrderModel {
   id: string;
   contect: ContectModel;

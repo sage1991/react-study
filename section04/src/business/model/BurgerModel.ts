@@ -1,6 +1,8 @@
 import { Ingredient } from "../code/Ingredient";
+import { Cloneable } from "../../core/decorator/Cloneable";
 
 
+@Cloneable
 class BurgerModel {
   price: number;
   ingredients: Record<Ingredient, number>;

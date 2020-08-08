@@ -7,6 +7,7 @@ const Navigation: FC = () => {
     <ul className={css.navigation}>
       <NavigationItem link="/">Burger Builder</NavigationItem>
       <NavigationItem link="/orders">Orders</NavigationItem>
+      <NavigationItem link="/sign">sign-in</NavigationItem>
     </ul>
   )
 }
