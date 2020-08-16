@@ -18,10 +18,14 @@ const BurgerBuilder: FC<RouteComponentProps> = (props) => {
     dispatch(UIActionBuilder.showModal(payload));
   }
 
+  const onSignup = () => {
+    props.history.replace("/sign")
+  }
+
   return (
     <Fragment>
       <BurgerWithStore />
-      <BuildControlsWithStore onPurchase={onPurchase} />
+      <BuildControlsWithStore onPurchase={onPurchase} onSignup={onSignup} />
     </Fragment>
   );
 }

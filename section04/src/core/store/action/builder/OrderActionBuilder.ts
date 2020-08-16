@@ -5,37 +5,35 @@ import { ContectModelBuilder } from "../../../../business/model/ContectModel";
 import { BurgerModelBuilder } from "../../../../business/model/BurgerModel";
 import { OrderModelBuilder, OrderModel } from "../../../../business/model/OrderModel";
 import { OrderActionType } from "../type/OrderAction";
+import { Provider } from "../../../types/function/Provider";
+import { StoreState } from "../../Store";
 
 
 class OrderActionBuilder {
 
-  static addOrders = (order: OrderModel) => {
-    return { type: OrderActionType.ADD_ORDERS, payload: order };
-  }
+  static addOrders = (order: OrderModel) => ({ type: OrderActionType.ADD_ORDERS, payload: order });
+  static setOrders = (orders: OrderModel[]) => ({ type: OrderActionType.SET_ORDERS, payload: orders });
 
-  static setOrders = (orders: OrderModel[]) => {
-    return { type: OrderActionType.SET_ORDERS, payload: orders };
-  }
+  static getOrders = (success: Callback, fail: Callback) => async (dispatch: Dispatch, getState: Provider<StoreState>) => {
+    try {
+      const auth = getState().sign.auth;
+      if (!auth.token) throw new Error("UnAuthorized");
 
-  static getOrders = (success: Callback, fail: Callback) => {
-    
-    return async (dispatch: Dispatch) => {
-      try {
-        const response = await firebaseClient.get("/orders.json", data => {
-          return Object.keys(data).map(key => {
-            return OrderActionBuilder.convertToOrder(key, data[key].data);
-          });
+      const response = await firebaseClient.get(`/orders.json?auth=${auth.token}`, data => {
+        if (!data) return [];
+        return Object.keys(data).map(key => {
+          return OrderActionBuilder.convertToOrder(key, data[key]);
         });
-  
-        if (response.isSuccess) {
-          dispatch(OrderActionBuilder.setOrders(response.data));
-          success();
-        } else {
-          fail();
-        }
-      } catch(e) {
-        fail(e);
+      });
+
+      if (response.isSuccess) {
+        dispatch(OrderActionBuilder.setOrders(response.data));
+        success();
+      } else {
+        fail();
       }
+    } catch(e) {
+      fail(e);
     }
   }
 

@@ -2,7 +2,7 @@ import qs from "qs";
 import { AxiosInstance, AxiosResponse } from "axios";
 import { Converter } from "../types/function/Converter";
 import { ResponseBuilder } from "./model/Response";
-import { firebase } from "./Axios";
+import { firebase, auth } from "./Axios";
 import { Request } from "./model/Request";
 
 
@@ -31,7 +31,7 @@ class HttpClient {
     const { request, converter } = this.parseArguments(requestOrConverter, orConverter);
     const { headers, payload } = request ?? defaultRequest;
     
-    const response = await this.instance.post(url, { headers: headers, data: this.convertPayload(headers, payload) });
+    const response = await this.instance.post(url, this.convertPayload(headers, payload), { headers: headers });
     return this.convertResponse(response, converter);
   }
 
@@ -41,7 +41,7 @@ class HttpClient {
     const { request, converter } = this.parseArguments(requestOrConverter, orConverter);
     const { headers, payload } = request ?? defaultRequest;
     
-    const response = await this.instance.put(url, { headers: headers, data: this.convertPayload(headers, payload) });
+    const response = await this.instance.post(url, this.convertPayload(headers, payload), { headers: headers });
     return this.convertResponse(response, converter);
   }
 
@@ -51,7 +51,7 @@ class HttpClient {
     const { request, converter } = this.parseArguments(requestOrConverter, orConverter);
     const { headers, payload } = request ?? defaultRequest;
     
-    const response = await this.instance.delete(url, { headers: headers, data: this.convertPayload(headers, payload) });
+    const response = await this.instance.post(url, this.convertPayload(headers, payload), { headers: headers });
     return this.convertResponse(response, converter);
   }
 
@@ -122,5 +122,6 @@ class HttpClient {
 }
 
 const firebaseClient = new HttpClient(firebase);
+const authClient = new HttpClient(auth);
 
-export { HttpClient, firebaseClient };
+export { HttpClient, firebaseClient, authClient };

@@ -6,6 +6,8 @@ import { firebaseClient } from "../../../http/HttpClient";
 import { Callback } from "../../../types/function/Callback";
 import { OrderModel } from "../../../../business/model/OrderModel";
 import { RequestBuilder } from "../../../http/model/Request";
+import { Provider } from "../../../types/function/Provider";
+import { StoreState } from "../../Store";
 
 
 class BurgerActionBuilder {
@@ -53,10 +55,13 @@ class BurgerActionBuilder {
 
   static orderBurger = (model: OrderModel, success: Callback, fail: Callback) => {
 
-    return async (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch, getState: Provider<StoreState>) => {
       try {
+        const auth = getState().sign.auth;
+        if (!auth.token) throw new Error("UnAuthorized");
+
         const request = new RequestBuilder<OrderModel>().payload(model).build();
-        const response = await firebaseClient.post("/orders.json", request);
+        const response = await firebaseClient.post(`/orders.json?auth=${auth.token}`, request);
         if (response.isSuccess) {
           dispatch(BurgerActionBuilder.resetIngredients());
           success();

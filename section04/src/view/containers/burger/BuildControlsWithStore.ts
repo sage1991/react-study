@@ -9,7 +9,8 @@ import { BurgerActionBuilder } from "../../../core/store/action/builder/BurgerAc
 const mapStateToProps = (state: StoreState) => {
   return {
     burgerModel: state.burger.burger,
-    priceModel: state.burger.price
+    priceModel: state.burger.price,
+    auth: state.sign.auth,
   }
 }
 

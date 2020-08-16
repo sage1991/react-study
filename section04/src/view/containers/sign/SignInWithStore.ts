@@ -11,6 +11,7 @@ import { Callback } from "../../../core/types/function/Callback";
 const mapDispatchToProps = (dispatch: ThunkDispatch<StoreState, null, SignAction>) => {
   return {
     requestSignIn: (auth: AuthModel, success: Callback, fail: Callback) => dispatch(SignActionBuilder.requestSignIn(auth, success, fail)),
+    requestSignUp: (auth: AuthModel, success: Callback, fail: Callback) => dispatch(SignActionBuilder.requestSignUp(auth, success, fail)),
   }
 }
 

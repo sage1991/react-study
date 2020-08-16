@@ -6,6 +6,7 @@ import { Button } from "../../../../../core/component/atom/button/Button";
 import { Callback } from "../../../../../core/types/function/Callback";
 import { BurgerModel } from "../../../../../business/model/BurgerModel";
 import { PriceModel } from "../../../../../business/model/PriceModel";
+import { AuthModel } from "../../../../../business/model/AuthModel";
 
 
 const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
@@ -27,11 +28,18 @@ const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
     <div className={css.buildControls}>
       <p>Current Price : <strong>{ burgerModel.price.toFixed(2) }</strong></p>
       { controlList }
-      <Button className={css.orderButton} 
-              disabled={priceModel.base === burgerModel.price}
-              onClick={props.onPurchase}>
-        Order Now!
-      </Button>
+      {
+        props.auth.token 
+        ? <Button className={css.orderButton} 
+                  disabled={priceModel.base === burgerModel.price}
+                  onClick={props.onPurchase}>
+            Order Now!
+          </Button>
+        : <Button className={css.orderButton} 
+                  onClick={props.onSignup}>
+            sign-up to order!
+          </Button>
+      }
     </div>
   );
 };
@@ -43,6 +51,8 @@ interface BuildControlsProps {
   burgerModel: BurgerModel;
   priceModel: PriceModel;
   onPurchase: Callback;
+  onSignup: Callback;
+  auth: AuthModel;
 }
 
 export { BuildControls };

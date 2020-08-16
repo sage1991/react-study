@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ReactNode, Fragment } from "react";
 import { CheckoutSummaryWithStore } from "../../containers/checkout/CheckoutSummaryWithStore";
 import { RouteComponentProps, Route } from "react-router-dom";
 import { ContactWithStore } from "../../containers/checkout/ContactWithStore";
@@ -39,13 +39,15 @@ class Checkout extends Component<CheckoutProps> {
   }
 
   private fail = (error: Error) => {
-    throw new Error("fail to order");
+    console.dir(error);
+    this.props.showModal(<Fragment><p style={{ backgroundColor: "white" }}>{error.message}</p></Fragment>)
   }
 
 }
 
 interface CheckoutProps extends RouteComponentProps {
   order: Callback;
+  showModal: (modal: ReactNode) => void;
 }
 
 export { Checkout };
