@@ -13,7 +13,7 @@ const reducer = combineReducers({
   ui: uiReducer
 });
 
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = process.env.NODE_ENV === "development" ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 const dispatch = store.dispatch;
