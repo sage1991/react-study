@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { BurgerAction } from "../../../core/store/action/type/BurgerAction";
 import { Ingredient } from "../../../business/code/Ingredient";
 import { StoreState } from "../../../core/store/Store";
 import { BuildControls } from "../../components/molecule/burger/controls/BuildControls";
 import { BurgerActionBuilder } from "../../../core/store/action/builder/BurgerActionBuilder";
+import { SignActionBuilder } from "../../../core/store/action/builder/SignActionBuilder";
 
 const mapStateToProps = (state: StoreState) => {
   return {
@@ -14,10 +14,11 @@ const mapStateToProps = (state: StoreState) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<BurgerAction>) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     addIngredient: (ingredient: Ingredient) => dispatch(BurgerActionBuilder.addIngredients(ingredient, 1)),
-    removeIngredient: (ingredient: Ingredient) => dispatch(BurgerActionBuilder.removeIngredients(ingredient, 1))
+    removeIngredient: (ingredient: Ingredient) => dispatch(BurgerActionBuilder.removeIngredients(ingredient, 1)),
+    setRedirection: (redirection: string) => dispatch(SignActionBuilder.setRedirection(redirection)),
   };
 }
 

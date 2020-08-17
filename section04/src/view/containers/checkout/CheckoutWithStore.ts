@@ -10,6 +10,13 @@ import { ReactNode } from "react";
 import { Action } from "../../../core/store/action/Action";
 
 
+const mapStateToProps = (state: StoreState) => {
+  return {
+    auth: state.sign.auth
+  }
+}
+
+
 const mapDispatchToProps = (dispatch: ThunkDispatch<StoreState, null, Action>) => {
   return {
     order: (model: OrderModel, success: Callback, fail: Callback) => dispatch(BurgerActionBuilder.orderBurger(model, success, fail)),
@@ -17,7 +24,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<StoreState, null, Action>) =
   }
 }
 
-const connector = connect(null, mapDispatchToProps);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 const CheckoutWithStore = connector(Checkout);
 
 export { CheckoutWithStore };

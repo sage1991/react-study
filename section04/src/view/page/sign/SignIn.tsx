@@ -92,7 +92,9 @@ class SignIn extends Component<SignInProps, SignInState> {
                         type={InputType.PASSWORD}
                         status={this.getInputState("password")}
                         inputStyle={{ invalid: css.invalid, valid: css.valid }} />
-                      <Button className={css.signInButton} buttonStyle={{ disabled: css.disabled }} type={ButtonType.SUBMIT} disabled={!this.submitable}>sign-in</Button>
+                      <Button className={css.signInButton} buttonStyle={{ disabled: css.disabled }} type={ButtonType.SUBMIT} disabled={!this.submitable}>
+                        { mode === AuthenticationMode.SIGN_IN ? "sign-in" : "sign-up" }
+                      </Button>
                       <Button className={css.switchButton} buttonStyle={{ touchStart: css.touch }} type={ButtonType.BUTTON} onClick={this.switchMode}>
                         { mode === AuthenticationMode.SIGN_IN ? "switch to sign-up" : "switch to sign-in" }
                       </Button>
@@ -141,13 +143,13 @@ class SignIn extends Component<SignInProps, SignInState> {
 
   private success = () => {
     this.loading(false);
-    this.props.history.replace("/");
+    this.props.history.replace(this.props.redirection);
+    this.props.setRedirection("/");
   }
 
   private fail = (e: any) => {
     this.loading(false);
     this.setState({ error: { message: e.message } });
-    console.log(e);
   }
 
   private loading = (show: boolean) => this.setState({ loading: show });
@@ -156,6 +158,8 @@ class SignIn extends Component<SignInProps, SignInState> {
 interface SignInProps extends RouteComponentProps {
   requestSignIn: Callback;
   requestSignUp: Callback;
+  setRedirection: Callback;
+  redirection: string;
 }
 
 interface SignInState {

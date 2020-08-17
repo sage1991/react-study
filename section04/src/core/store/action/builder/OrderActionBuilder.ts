@@ -19,7 +19,7 @@ class OrderActionBuilder {
       const auth = getState().sign.auth;
       if (!auth.token) throw new Error("UnAuthorized");
 
-      const response = await firebaseClient.get(`/orders.json?auth=${auth.token}`, data => {
+      const response = await firebaseClient.get(`/orders.json?auth=${auth.token}&orderBy="userId"&equalTo="${auth.id}"`, data => {
         if (!data) return [];
         return Object.keys(data).map(key => {
           return OrderActionBuilder.convertToOrder(key, data[key]);

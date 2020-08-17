@@ -4,6 +4,8 @@ import { RouteComponentProps, Route } from "react-router-dom";
 import { ContactWithStore } from "../../containers/checkout/ContactWithStore";
 import { OrderModel } from "../../../business/model/OrderModel";
 import { Callback } from "../../../core/types/function/Callback";
+import { withAuth } from "../../hoc/withAuth/WithAuth";
+import { AuthModel } from "../../../business/model/AuthModel";
 
 
 class Checkout extends Component<CheckoutProps> {
@@ -19,7 +21,7 @@ class Checkout extends Component<CheckoutProps> {
   }
 
   private onCancel = () => {
-    this.props.history.goBack();
+    this.props.history.replace("/");
   }
 
   private onContinue = () => {
@@ -31,6 +33,7 @@ class Checkout extends Component<CheckoutProps> {
   }
 
   private onOrder = (model: OrderModel) => {
+    model.userId = this.props.auth.id;
     this.props.order(model, this.success, this.fail);
   }
 
@@ -46,8 +49,11 @@ class Checkout extends Component<CheckoutProps> {
 }
 
 interface CheckoutProps extends RouteComponentProps {
+  auth: AuthModel;
   order: Callback;
   showModal: (modal: ReactNode) => void;
 }
 
-export { Checkout };
+
+const CheckoutWithAuth = withAuth(Checkout);
+export { CheckoutWithAuth as Checkout };

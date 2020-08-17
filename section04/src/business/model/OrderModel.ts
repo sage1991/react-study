@@ -7,6 +7,7 @@ class OrderModel {
   id: string;
   contect: ContectModel;
   burger: BurgerModel;
+  userId: string;
 }
 
 
@@ -26,6 +27,11 @@ class OrderModelBuilder {
 
   burger(burger: BurgerModel) {
     this.instance.burger = burger;
+    return this;
+  }
+
+  userId(userId: string) {
+    this.instance.userId = userId;
     return this;
   }
 

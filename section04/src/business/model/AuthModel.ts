@@ -45,6 +45,18 @@ class AuthModelBuilder {
     return this;
   }
 
+  fromJSON(authJSON: string | null) {
+    if (!authJSON) return this;
+    const auth = JSON.parse(authJSON);
+    this.instance.id = auth.id;
+    this.instance.email = auth.email;
+    this.instance.password = auth.password;
+    this.instance.token = auth.token;
+    this.instance.refreshToken = auth.refreshToken;
+    this.instance.returnSecureToken = auth.returnSecureToken;
+    return this;
+  }
+
   build() {
     return this.instance;
   }

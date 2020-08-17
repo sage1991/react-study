@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import { withAuth } from "../../hoc/withAuth/WithAuth";
 
 
 class Logout extends Component<LogoutProps> {
@@ -12,4 +13,5 @@ interface LogoutProps {
   logout: () => void;
 }
 
-export { Logout };
+const LogoutWithAuth = withAuth(Logout);
+export { LogoutWithAuth as Logout };

@@ -36,7 +36,7 @@ const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
             Order Now!
           </Button>
         : <Button className={css.orderButton} 
-                  onClick={props.onSignup}>
+                  onClick={() => { props.setRedirection("/checkout"); props.onSignup(); }}>
             sign-up to order!
           </Button>
       }
@@ -46,6 +46,7 @@ const BuildControls: FC<BuildControlsProps> = (props:BuildControlsProps) => {
 
 
 interface BuildControlsProps {
+  setRedirection: Callback;
   addIngredient: Callback;
   removeIngredient: Callback;
   burgerModel: BurgerModel;
