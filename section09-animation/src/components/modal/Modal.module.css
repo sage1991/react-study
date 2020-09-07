@@ -1,0 +1,52 @@
+.modal {
+  position: fixed;
+  z-index: 200;
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  box-sizing: border-box;
+  top: 30%;
+  left: 25%;
+  width: 50%;
+}
+
+.open {
+  animation: openModal 300ms ease-out forwards;
+}
+
+.close {
+  animation: closeModal 300ms ease-out forwards;
+}
+
+
+@keyframes openModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes closeModal {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(30%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}

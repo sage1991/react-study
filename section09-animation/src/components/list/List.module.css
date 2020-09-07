@@ -1,0 +1,22 @@
+.list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 280px;
+}
+
+.listItem {
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #521751;
+  background-color: white;
+  text-align: center;
+  cursor: pointer;
+}
+
+.listItem:hover,
+.listItem:active {
+  background-color: #ccc;
+}
