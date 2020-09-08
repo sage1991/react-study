@@ -1,9 +1,12 @@
 import React, { FC } from "react";
 import css from "./Modal.module.css";
+import { TransitionStatus } from "react-transition-group/Transition";
 
 
 const Modal: FC<ModalProps> = (props) => {
-  const classes = [ css.modal, props.show ? css.open : css.close ];
+  const classes = [ css.modal ];
+  if (props.show === "entering") classes.push(css.open);
+  else if (props.show === "exiting") classes.push(css.close);
 
   return (
     <div className={classes.join(" ")}>
@@ -15,7 +18,7 @@ const Modal: FC<ModalProps> = (props) => {
 
 interface ModalProps {
   close?: () => void;
-  show?: boolean;
+  show?: TransitionStatus;
 }
 
 
