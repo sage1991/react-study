@@ -20,3 +20,52 @@
 .listItem:active {
   background-color: #ccc;
 }
+
+.fadeEnter {
+  opacity: 0;
+  transform: translateY(-20%);
+}
+
+.fadeEnterActive {
+  animation: fade-in 300ms ease-in forwards;
+}
+
+.fadeEnterDone {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fadeExit {
+  opacity: 1;
+}
+
+.fadeExitActive {
+  animation: fade-out 300ms ease-out forwards;
+}
+
+.fadeExitDone {
+  opacity: 0;
+}
+
+
+
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

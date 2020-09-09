@@ -1,5 +1,18 @@
 import React, { Component } from "react";
 import css from "./List.module.css";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { CSSTransitionClassNames } from "react-transition-group/CSSTransition";
+
+
+const classNames: CSSTransitionClassNames = {
+  enter: css.fadeEnter,
+  enterActive: css.fadeEnterActive,
+  enterDone: css.fadeEnterDone,
+  exit: css.fadeExit,
+  exitDone: css.fadeExitDone,
+  exitActive: css.fadeExitActive
+}
+
 
 class List extends Component<{}, ListState> {
 
@@ -14,20 +27,26 @@ class List extends Component<{}, ListState> {
           Add Item
         </button>
         <p>Click Item to Remove.</p>
-        <ul className={css.list}>
+        <TransitionGroup
+          component="ul"
+          className={css.list}>
           { this.renderItems() }
-        </ul>
+        </TransitionGroup>
       </div>
     );
   }
 
   private renderItems = () => this.state.items.map((item, index) => (
-    <li 
+    <CSSTransition 
       key={index} 
-      className={css.listItem} 
-      onClick={this.removeItem.bind(this, index)}>
-      { item }
-    </li>
+      classNames={classNames} 
+      timeout={300}>
+      <li
+        className={css.listItem} 
+        onClick={this.removeItem.bind(this, index)}>
+        { item }
+      </li>
+    </CSSTransition>
   ));
 
   private removeItem = (index: number) => this.setState(prev => ({
