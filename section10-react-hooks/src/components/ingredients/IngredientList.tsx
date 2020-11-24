@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import "./IngredientList.css";
+import { Ingredient } from "../../types/Ingredient";
 
 
 interface IngredientListProps {
-  ingredients: any[];
+  ingredients: Ingredient[];
   onRemoveItem: (id: number) => void;
 }
 

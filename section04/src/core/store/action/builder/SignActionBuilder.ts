@@ -1,5 +1,4 @@
-import { SignActionType } from "../type/SignAction";
-import { Dispatch } from "redux";
+import { SignAction, SignActionType } from "../type/SignAction";
 import { Callback } from "../../../types/function/Callback";
 import { AuthModel, AuthModelBuilder } from "../../../../business/model/AuthModel";
 import { authClient } from "../../../http/HttpClient";
@@ -15,14 +14,18 @@ class SignActionBuilder {
 
   private static timer: NodeJS.Timeout;
   
-  static setRedirection = (redirection: string) => ({ type: SignActionType.SET_REDIRECTION, payload: redirection });
-  static signIn = (auth: AuthModel) => ({ type: SignActionType.SIGN_IN, payload: auth });
+  static setRedirection = (redirection: string): SignAction => ({ type: SignActionType.SET_REDIRECTION, payload: redirection });
+
+  static signIn = (auth: AuthModel): SignAction => ({ type: SignActionType.SIGN_IN, payload: auth });
   
-  static logout = () => {
-    LocalRepository.delete(PersistentKey.AUTH);
-    LocalRepository.delete(PersistentKey.AUTH_EXPIRATION);
-    return { type: SignActionType.LOG_OUT, payload: null}
-  };
+  static logout = (): SignAction => ({ type: SignActionType.INIT_LOG_OUT, payload: null });
+  
+  static handleLogout = (): SignAction => ({ type: SignActionType.LOG_OUT, payload: null })
+  
+  static checkAuthTimeout = (expirationTime: number): SignAction => ({ type: SignActionType.CHECK_AUTH_TIMEOUT, payload: expirationTime });
+  
+  // static requestSignIn = (auth: AuthModel): SignAction => ({ type: SignActionType.REQUEST_SIGN_IN, payload: auth });
+
   
   static requestSignUp = (auth: AuthModel, success: Callback, fail: Callback) => async (dispatch: ThunkDispatch<StoreState, null, Action>) => {
     try {
@@ -77,10 +80,10 @@ class SignActionBuilder {
   }
 
 
-  static checkAuthTimeout = (expirationTime: number) => (dispatch: Dispatch) => {
-    if (SignActionBuilder.timer) clearTimeout(SignActionBuilder.timer);
-    SignActionBuilder.timer = setTimeout(() => { dispatch(SignActionBuilder.logout()) }, expirationTime);
-  }
+  // static checkAuthTimeout = (expirationTime: number) => (dispatch: Dispatch) => {
+  //   if (SignActionBuilder.timer) clearTimeout(SignActionBuilder.timer);
+  //   SignActionBuilder.timer = setTimeout(() => { dispatch(SignActionBuilder.logout()) }, expirationTime);
+  // }
 
   
   private static persistAuth = (auth: AuthModel, expirationTime: number) => {
