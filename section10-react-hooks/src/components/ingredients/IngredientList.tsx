@@ -10,6 +10,7 @@ interface IngredientListProps {
 
 
 export const IngredientList: FC<IngredientListProps> = (props) => {
+  console.log(props.ingredients);
   return (
     <section className="ingredient-list">
       <h2>Loaded Ingredients</h2>

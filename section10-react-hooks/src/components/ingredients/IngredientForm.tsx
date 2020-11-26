@@ -2,11 +2,13 @@ import React, { ChangeEvent, FC, FormEvent, memo, useState } from "react";
 import { Card } from "../UI/Card";
 import "./IngredientForm.css";
 import { Ingredient } from "../../types/Ingredient";
+import { LoadingIndicator } from "../UI/LoadingIndicator";
 
 
 
 interface IngredientFormProps {
   onSubmit: (ingredient: Ingredient) => void;
+  loading: boolean;
 }
 
 
@@ -49,6 +51,7 @@ export const IngredientForm: FC<IngredientFormProps> = (props) => {
           </div>
           <div className="ingredient-form__actions">
             <button type="submit">Add Ingredient</button>
+            { props.loading && <LoadingIndicator /> }
           </div>
         </form>
       </Card>

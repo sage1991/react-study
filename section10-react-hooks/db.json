@@ -1,0 +1,24 @@
+{
+  "ingredients": [
+    {
+      "id": 1606405614372,
+      "title": "banana",
+      "amount": 4
+    },
+    {
+      "id": 1606405624081,
+      "title": "apple",
+      "amount": 9
+    },
+    {
+      "id": 1606405632571,
+      "title": "lemon",
+      "amount": 3
+    },
+    {
+      "id": 1606406100601,
+      "title": "orange",
+      "amount": 10
+    }
+  ]
+}
