@@ -4,7 +4,7 @@ import { Search } from "./Search";
 import { Ingredient } from "../../types/Ingredient";
 import { IngredientList } from "./IngredientList";
 import { ErrorModal } from "../UI/ErrorModal";
-
+import { useHttp } from "../../hooks/useHttp";
 
 
 enum ActionType {
@@ -49,6 +49,8 @@ export const Ingredients: FC = () => {
   const [ ingredients, dispatch ] = useReducer(reducer, []);
   const [ loading, setLoading ] = useState<boolean>(false);
   const [ error, setError ] = useState<string>();
+  const [ http, send, clear ] = useHttp();
+
   useEffect(() => {
     fetchIngredients();
   }, []);
@@ -74,7 +76,7 @@ export const Ingredients: FC = () => {
     setLoading(false);
   }, [ dispatch ]);
 
-  const onSubmit = async (ingredient: Ingredient) => {
+  const onSubmit = useCallback(async (ingredient: Ingredient) => {
     setLoading(true);
     await fetch("http://localhost:3001/ingredients", {
       method: "POST",
@@ -83,14 +85,14 @@ export const Ingredients: FC = () => {
     });
     dispatch({ type: ActionType.ADD, payload: ingredient });
     setLoading(false);
-  }
+  }, [ setLoading, dispatch ]);
 
-  const onRemoveItem = async (id: number) => {
+  const onRemoveItem = useCallback(async (id: number) => {
     setLoading(true);
     await fetch(`http://localhost:3001/ingredients/${id}`, { method: "DELETE" });
     dispatch({ type: ActionType.DELETE, id: id });
     setLoading(false);
-  }
+  }, [ setLoading, dispatch ]);
 
   const closeErrorModal = () => setError("");
 
